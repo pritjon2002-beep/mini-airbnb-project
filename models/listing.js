@@ -19,7 +19,7 @@ image: {
     price: {
         type: Number,
         required: true,
-        min: 20
+        min: [20, "Price must be at least ₹20"],
     },
     location: {
         type: String,
