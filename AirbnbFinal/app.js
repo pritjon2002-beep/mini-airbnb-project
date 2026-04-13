@@ -1,6 +1,7 @@
 
 const express = require("express");
 const app = express();
+
 const mongoose = require("mongoose");
 
 const Listing = require("./models/listing.js");
@@ -20,10 +21,10 @@ main()
 async function main(){
     await mongoose.connect("mongodb://127.0.0.1:27017/WanderlustFinal");
 }
-app.set("view engine", "ejs")
-app.set("views", path.join(__dirname, "views")) // connect views folder safely
+app.set("view engine", "ejs");
+app.set("views",path.join(__dirname,"views")) // connect views folder safely
 
-app.use(express.urlencoded({extended: true}));// parse form data from HTML requests and make it availabel in req.body
+app.use(express.urlencoded({extended: true})) // parse form data from HTML requests and make it availabel in req.body
 
 //home route
 app.get("/",(req,res)=> {
@@ -35,6 +36,17 @@ app.get("/listings",async(req,res)=>{
     let allListings = await Listing.find({});
     res.render("./listings/index.ejs", {allListings});
 })
+//new route
+app.get("/listings/new", (req,res)=> {
+    res.render("./listings/new.ejs")
+})
+
+// // new route
+
+// app.get("/listings/new", (req,res)=>{
+//     res.render("./listings/new");
+// })
+
     
 // show route
 
@@ -43,6 +55,24 @@ app.get("/listings/:id", async(req,res)=>{
     const listing = await Listing.findById(id);
     res.render("listings/show.ejs", {listing});
 })
+
+// create route
+app.post("/listings", async(req,res)=>{
+    let newListing = new Listing(req.body.listing);
+    await newListing.save();
+    res.redirect("/listings");
+
+})
+
+//create route
+
+// app.post("/listings", async(req,res)=>{
+//    let newListing =  new Listing(req.body.listing);
+//    await newListing.save();
+//    res.redirect("/listings");
+    
+// })
+
 
 
 // app.get("/testListing", async(req,res)=> {

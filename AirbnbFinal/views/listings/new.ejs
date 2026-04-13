@@ -1,0 +1,36 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>wanderlust</title>
+</head>
+<body>
+    <h2><span style="
+  display:inline-block;
+  padding: 0 10px;
+  border-bottom: 3px solid black;
+">
+  Create A New Listing
+</span></h2>
+    <!-- <form action="/listings" method="post" >
+
+        <input name="listing[title]" type="text" placeholder="enter suitable title"  style="width: 50vw; height: 50px;"  required ><br><br>
+        <textarea name="listing[description]" type="text" placeholder="Add a good description"  style="width: 50vw; height: 20vh;" required ></textarea><br><br>
+        <input name="listing[image]" type="text" placeholder="enter image url"  style="width: 50vw; height: 50px;"  ><br><br>
+        <input name="listing[price]" type="number" placeholder="enter price"   step="500"  style="width: 50vw; height: 50px;" required ><br><br>
+        <input name="listing[location]" type="text" placeholder="enter location"  style="width: 50vw; height: 50px;" required ><br><br>
+        <input name="listing[country]" type="text" placeholder="enter your country name"  style="width: 50vw; height: 50px;" required ><br><br>
+        <button type="submit"  style="width: 50vw; height: 50px; color: rgb(215, 215, 247); background-color: blue; font-size: large; font-weight: 900;">Insert</button>
+    </form> -->
+
+    <form action="/listings" method="post" style="align-items: center;">
+        <input name="listing[title]" type="text" placeholder="Enter a good Title " style="height: 50px; width: 50vw;" required><br><br>
+        <textarea name="listing[description]" type="text" placeholder="Enter suitable description " style="height: 25vh; width: 50vw;" required> </textarea> <br><br>
+        <input name="listing[image]" type="text" placeholder="Enter image url " style="height: 50px; width: 50vw;" ><br><br>
+        <input name="listing[price]" type="number" placeholder="Enter Price" style="height: 50px; width: 50vw;" step="500" required><br><br>
+        <input name="listing[location]" type="text" placeholder="Enter location " style="height: 50px; width: 50vw;" required><br><br>
+        <input name="listing[country]" type="text" placeholder="Enter Country " style="height: 50px; width: 50vw;" required><br><br>
+        <button style="height: 50px; width: 50vw; " type="submit">Add Listing</button>
+    </form>
+</body>
+</html>
