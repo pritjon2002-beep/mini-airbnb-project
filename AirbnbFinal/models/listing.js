@@ -10,12 +10,19 @@ const listingSchema = new mongoose.Schema({
         type: String,
     },
 
-    image: {
-        type: String,
-        default:" https://www.google.com/imgres?q=elon%20musk&imgurl=https%3A%2F%2Fimage.cnbcfm.com%2Fapi%2Fv1%2Fimage%2F107293744-1693398435735-elon.jpg%3Fv%3D1738327797&imgrefurl=https%3A%2F%2Fwww.cnbc.com%2Felon-musk%2F&docid=cdvineuccqkLcM&tbnid=XVgS0ojHQvqEtM&vet=12ahUKEwjE0aOFn9uTAxW9TWwGHQcxEJMQnPAOegQIFhAB..i&w=2878&h=1918&hcb=2&ved=2ahUKEwjE0aOFn9uTAxW9TWwGHQcxEJMQnPAOegQIFhAB",
-        set: (v) => v==="" ? "https://www.google.com/imgres?q=elon%20musk&imgurl=https%3A%2F%2Fimage.cnbcfm.com%2Fapi%2Fv1%2Fimage%2F107293744-1693398435735-elon.jpg%3Fv%3D1738327797&imgrefurl=https%3A%2F%2Fwww.cnbc.com%2Felon-musk%2F&docid=cdvineuccqkLcM&tbnid=XVgS0ojHQvqEtM&vet=12ahUKEwjE0aOFn9uTAxW9TWwGHQcxEJMQnPAOegQIFhAB..i&w=2878&h=1918&hcb=2&ved=2ahUKEwjE0aOFn9uTAxW9TWwGHQcxEJMQnPAOegQIFhAB" : v,
-    },
-
+image: {
+  filename: {
+    type: String,
+    default: "listingimage",
+  },
+  url: {
+    type: String,
+    default: "https://unsplash.com/photos/3d-render-modern-bedroom-nE6_e2G5rBI",
+    set: (v) => v === "" 
+      ? "https://unsplash.com/photos/3d-render-modern-bedroom-nE6_e2G5rBI"
+      : v,
+  },
+},
     price: {
         type: Number,
         min: 500,
@@ -32,6 +39,7 @@ const listingSchema = new mongoose.Schema({
     }
 });
 
-const Listing = mongoose.model("Listing",listingSchema);
+
+const Listing = mongoose.model("Listing", listingSchema);
 module.exports = Listing;
 
