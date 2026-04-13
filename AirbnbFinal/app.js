@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 
 const Listing = require("./models/listing.js");
 
-const path = require("path"); //this is for ejs setup
+const path = require("path") //this is for ejs setup
 
 main()
 .then(()=>{
@@ -20,20 +20,17 @@ main()
 async function main(){
     await mongoose.connect("mongodb://127.0.0.1:27017/WanderlustFinal");
 }
-
-app.set("view engine" , "ejs");
-app.set("views", path.join(__dirname, "views")); // connect views folder safely
+app.set("view engine", "ejs")
+app.set("views", path.join(__dirname, "views")) // connect views folder safely
 
 app.get("/",(req,res)=> {
     res.send("Hello i am home page");
 });
 
-
-app.get("/listings", async(req,res)=>{
-  let allListings = await Listing.find({});
-  res.render("index.ejs", {allListings});
-});
-
+app.get("/listings",async(req,res)=>{
+    let allListings = await Listing.find({});
+    res.render("./listings/index.ejs", {allListings});
+})
     
 
 // app.get("/testListing", async(req,res)=> {
