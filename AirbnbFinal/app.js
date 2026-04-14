@@ -1,3 +1,4 @@
+
 const express = require("express");
 const app = express();
 
@@ -6,6 +7,8 @@ const mongoose = require("mongoose");
 const Listing = require("./models/listing.js");
 
 const path = require("path") //this is for ejs setup
+
+const methodOverride = require("method-override"); //it helps to make post request to put request . make easy to edit listings
 
 database()
 .then(()=>{
@@ -20,10 +23,13 @@ database()
 async function database(){
     await mongoose.connect("mongodb://127.0.0.1:27017/WanderlustFinal");
 }
+
+
 app.set("view engine", "ejs");
 app.set("views",path.join(__dirname,"views")) // connect views folder safely
 
 app.use(express.urlencoded({extended: true})) // parse form data from HTML requests and make it availabel in req.body
+app.use(methodOverride("_method")); // now we can use method put in ejs file 
 
 //home route
 app.get("/",(req,res)=> {
@@ -45,12 +51,10 @@ app.get("/listings/new", (req,res)=> {
 app.get("/listings/:id/edit", async(req,res)=>{
     let {id} = req.params;
    let listing =  await Listing.findById(id);
-   res.render("/listings/edit.ejs", {listing})
+   res.render("./listings/edit.ejs", {listing})
 })
 
-app.post("/listings/:id", async(req,res)=>{
 
-})
 
 
     
@@ -70,7 +74,15 @@ app.post("/listings", async(req,res)=>{
 
 })
 
+// update route
 
+app.put("/listings/:id", async(req,res)=>{
+    let {id} = req.params;
+    let listing = req.body.listing;
+    await Listing.findByIdAndUpdate(id,listing);
+    res.redirect(`/listings/${id}`);
+
+})
 
 
 // app.get("/testListing", async(req,res)=> {
