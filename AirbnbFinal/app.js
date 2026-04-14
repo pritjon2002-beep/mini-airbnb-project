@@ -1,4 +1,3 @@
-
 const express = require("express");
 const app = express();
 
@@ -8,7 +7,7 @@ const Listing = require("./models/listing.js");
 
 const path = require("path") //this is for ejs setup
 
-main()
+database()
 .then(()=>{
     console.log("Database Connected Sucessfully");
 })
@@ -18,7 +17,7 @@ main()
 })
 
 
-async function main(){
+async function database(){
     await mongoose.connect("mongodb://127.0.0.1:27017/WanderlustFinal");
 }
 app.set("view engine", "ejs");
@@ -41,11 +40,18 @@ app.get("/listings/new", (req,res)=> {
     res.render("./listings/new.ejs")
 })
 
-// // new route
+//edit route : 
 
-// app.get("/listings/new", (req,res)=>{
-//     res.render("./listings/new");
-// })
+app.get("/listings/:id/edit", async(req,res)=>{
+    let {id} = req.params;
+   let listing =  await Listing.findById(id);
+   res.render("/listings/edit.ejs", {listing})
+})
+
+app.post("/listings/:id", async(req,res)=>{
+
+})
+
 
     
 // show route
@@ -64,14 +70,6 @@ app.post("/listings", async(req,res)=>{
 
 })
 
-//create route
-
-// app.post("/listings", async(req,res)=>{
-//    let newListing =  new Listing(req.body.listing);
-//    await newListing.save();
-//    res.redirect("/listings");
-    
-// })
 
 
 
