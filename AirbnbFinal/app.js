@@ -73,6 +73,16 @@ app.get("/listings/:id", async (req, res) => {
     res.render("listings/show.ejs", { listing });
 });
 
+// Delete
+
+app.delete("/listings/:id", async(req,res)=>{
+    let {id} = req.params;
+    let deleteListing = await Listing.findByIdAndDelete(id);
+    console.log(deleteListing);
+    res.redirect("/listings");
+    
+})
+
 // app.get("/testListing", async(req,res)=> {
 //     let sampleListing = new Listing({
 //         title: "Mumbai Beach",
