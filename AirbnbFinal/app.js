@@ -1,89 +1,77 @@
-
+// 1. Imports
 const express = require("express");
 const app = express();
-
 const mongoose = require("mongoose");
-
 const Listing = require("./models/listing.js");
+const path = require("path");
+const methodOverride = require("method-override");
 
-const path = require("path") //this is for ejs setup
-
-const methodOverride = require("method-override"); //it helps to make post request to put request . make easy to edit listings
-
-database()
-.then(()=>{
-    console.log("Database Connected Sucessfully");
-})
-.catch((err)=>{
-    console.log(err);
-    
-})
-
-
-async function database(){
+// 2. Database Connection
+async function database() {
     await mongoose.connect("mongodb://127.0.0.1:27017/WanderlustFinal");
 }
 
+database()
+.then(() => {
+    console.log("Database Connected Successfully");
+})
+.catch((err) => {
+    console.log(err);
+});
 
+// 3. App Configuration (EJS, middleware)
 app.set("view engine", "ejs");
-app.set("views",path.join(__dirname,"views")) // connect views folder safely
+app.set("views", path.join(__dirname, "views"));
 
-app.use(express.urlencoded({extended: true})) // parse form data from HTML requests and make it availabel in req.body
-app.use(methodOverride("_method")); // now we can use method put in ejs file 
+app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride("_method"));
 
-//home route
-app.get("/",(req,res)=> {
+// 4. Routes
+
+// Home
+app.get("/", (req, res) => {
     res.send("Hello i am home page");
 });
 
-//index route
-app.get("/listings",async(req,res)=>{
+// Index
+app.get("/listings", async (req, res) => {
     let allListings = await Listing.find({});
-    res.render("./listings/index.ejs", {allListings});
-})
-//new route
-app.get("/listings/new", (req,res)=> {
-    res.render("./listings/new.ejs")
-})
+    res.render("./listings/index.ejs", { allListings });
+});
 
-//edit route : 
+// New
+app.get("/listings/new", (req, res) => {
+    res.render("./listings/new.ejs");
+});
 
-app.get("/listings/:id/edit", async(req,res)=>{
-    let {id} = req.params;
-   let listing =  await Listing.findById(id);
-   res.render("./listings/edit.ejs", {listing})
-})
-
-
-
-
-    
-// show route
-
-app.get("/listings/:id", async(req,res)=>{
-    let {id} = req.params;
-    const listing = await Listing.findById(id);
-    res.render("listings/show.ejs", {listing});
-})
-
-// create route
-app.post("/listings", async(req,res)=>{
+// Create
+app.post("/listings", async (req, res) => {
     let newListing = new Listing(req.body.listing);
     await newListing.save();
     res.redirect("/listings");
+});
 
-})
+// Edit
+app.get("/listings/:id/edit", async (req, res) => {
+    let { id } = req.params;
+    let listing = await Listing.findById(id);
+    res.render("./listings/edit.ejs", { listing });
+});
 
-// update route
-
-app.put("/listings/:id", async(req,res)=>{
-    let {id} = req.params;
+// Update
+app.put("/listings/:id", async (req, res) => {
+    let { id } = req.params;
     let listing = req.body.listing;
-    await Listing.findByIdAndUpdate(id,listing);
+    await Listing.findByIdAndUpdate(id, listing);
     res.redirect(`/listings/${id}`);
+});
 
-})
-
+// Show
+app.get("/listings/:id", async (req, res) => {
+    let { id } = req.params;
+    const listing = await Listing.findById(id);
+    res.render("listings/show.ejs", { listing });
+});
 
 // app.get("/testListing", async(req,res)=> {
 //     let sampleListing = new Listing({
@@ -101,7 +89,7 @@ app.put("/listings/:id", async(req,res)=>{
 // })
 
 
-app.listen(8080,()=>{
+// 5. Server Start
+app.listen(8080, () => {
     console.log("Server is running on port 8080");
-    
-})
+});
