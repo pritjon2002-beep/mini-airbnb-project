@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const Listing = require("./models/listing.js");
 const path = require("path");
 const methodOverride = require("method-override");
+const ejsMate = require("ejs-mate");
 
 // 2. Database Connection
 async function database() {
@@ -25,6 +26,9 @@ app.set("views", path.join(__dirname, "views"));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
+
+app.engine("ejs",ejsMate);// we can use layouts for diff boilerplate.
+
 
 // 4. Routes
 
@@ -101,5 +105,5 @@ app.delete("/listings/:id", async(req,res)=>{
 
 // 5. Server Start
 app.listen(8080, () => {
-    console.log("Server is running on port 8080");
+    console.log(`Server is running on http://localhost:8080`);
 });
