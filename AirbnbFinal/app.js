@@ -29,6 +29,8 @@ app.use(methodOverride("_method"));
 
 app.engine("ejs",ejsMate);// we can use layouts for diff boilerplate.
 
+app.use(express.static(path.join(__dirname, "public"))); // we join public folder now we can use static files
+
 
 // 4. Routes
 
