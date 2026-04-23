@@ -7,9 +7,7 @@
 ">
   Edit Your New Listing
 </span></h2>
- 
-
-    <form action="/listings/<%=listing._id %>?_method=PUT" method="POST" style="align-items: center;">
+    <form action="/listings/<%= listing._id  %>?_method=PUT" method="POST" style="align-items: center;">
         <input name="listing[title]"  type="text" value="<%= listing.title %>" style="height: 50px; width: 50vw;" required><br><br>
         <textarea name="listing[description]" type="text"  style="height: 25vh; width: 50vw;" required> <%= listing.description %></textarea> <br><br>
         <input name="listing[image][url]" type="text" value="<%= listing.image.url %>"  style="height: 50px; width: 50vw;" ><br><br>
@@ -18,5 +16,4 @@
         <input name="listing[country]" type="text" value="<%= listing.country %>"  style="height: 50px; width: 50vw;" required><br><br>
         <button style="height: 50px; width: 50vw; "  type="submit">Edit Listing</button>
     </form>
-
 </body>

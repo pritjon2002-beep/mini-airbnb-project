@@ -30,6 +30,10 @@ body {
 
 /* footer */
 
+footer {
+    margin-top: 2rem !important;
+}
+
 .f-info-links {
     margin-bottom: .7rem;
 }

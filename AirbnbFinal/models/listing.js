@@ -17,9 +17,9 @@ image: {
   },
   url: {
     type: String,
-    default: "https://unsplash.com/photos/3d-render-modern-bedroom-nE6_e2G5rBI",
+    default:  "https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8aG90ZWxzfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60",
     set: (v) => v === "" 
-      ? "https://unsplash.com/photos/3d-render-modern-bedroom-nE6_e2G5rBI"
+      ?  "https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8aG90ZWxzfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60"
       : v,
   },
 },
