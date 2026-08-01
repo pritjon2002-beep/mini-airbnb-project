@@ -1,66 +1,106 @@
 <% layout("/layouts/boilerplate.ejs") %>
-    <div class="row">
-        <div class="col-8 offset-2">
-            <h2><div class="m-4 text-center">
-                 <span style="
-      display:inline-block;
-         padding: 0 20px;
-             border-bottom: 3px solid black;">
-                    Create A New Listing
-                </span>
-            </div>
-            </h2>
-            <!-- <form action="/listings" method="post" >
+<div class="row">
+  <div class="col-8 offset-2">
+    <h2>
+      <div class="m-4 text-center">
+        <span
+          style="
+            display: inline-block;
+            padding: 0 20px;
+            border-bottom: 3px solid black;
+          "
+        >
+          Create A New Listing
+        </span>
+      </div>
+    </h2>
 
-        <input name="listing[title]" type="text" placeholder="enter suitable title"  style="width: 50vw; height: 50px;"  required ><br><br>
-        <textarea name="listing[description]" type="text" placeholder="Add a good description"  style="width: 50vw; height: 20vh;" required ></textarea><br><br>
-        <input name="listing[image]" type="text" placeholder="enter image url"  style="width: 50vw; height: 50px;"  ><br><br>
-        <input name="listing[price]" type="number" placeholder="enter price"   step="500"  style="width: 50vw; height: 50px;" required ><br><br>
-        <input name="listing[location]" type="text" placeholder="enter location"  style="width: 50vw; height: 50px;" required ><br><br>
-        <input name="listing[country]" type="text" placeholder="enter your country name"  style="width: 50vw; height: 50px;" required ><br><br>
-        <button type="submit"  style="width: 50vw; height: 50px; color: rgb(215, 215, 247); background-color: blue; font-size: large; font-weight: 900;">Insert</button>
-    </form> -->
+    <form action="/listings" method="post">
+      <div class="mt-3">
+        <label for="title" class="form-label">Enter &nbsp; Title :</label>
+        <input
+          name="listing[title]"
+          type="text"
+          placeholder="Enter a good Title "
+          id="title"
+          class="form-control"
+          required
+        />
+      </div>
 
-            <form action="/listings" method="post">
+      <div class="mt-3">
+        <label for="description" class="form-label"
+          >Enter &nbsp; Description :</label
+        >
+        <textarea
+          name="listing[description]"
+          type="text"
+          placeholder="Enter suitable description "
+          id="description"
+          class="form-control"
+          required
+        >
+        </textarea>
+      </div>
 
-                <div class="mt-3">
-                    <label for="title" class="form-label">Enter &nbsp; Title :</label>
-                    <input name="listing[title]" type="text" placeholder="Enter a good Title " id="title"
-                        class="form-control" required>
-                </div>
-
-                <div class="mt-3">
-                    <label for="description" class="form-label">Enter &nbsp; Description :</label>
-                    <textarea name="listing[description]" type="text" placeholder="Enter suitable description "
-                        id="description" class="form-control" required> </textarea>
-                </div>
-
-                <div class="mt-3">
-                    <label for="image" class="form-label"> Enter &nbsp; Image &nbsp; Link :</label>
-                    <input id="image" class="form-control" name="listing[image]" type="text"
-                        placeholder="Enter image url ">
-                </div>
-                <div class="row">
-                <div class="mt-3 col-md-4">
-                    <label for="price" class="form-label">Enter &nbsp; Price :</label>
-                    <input id="price" class="form-control" name="listing[price]" type="number" placeholder="Enter Price"
-                        step="500" required>
-                    </div>
-                    <div class="mt-3 col-md-8">
-                        <label for="country" class="form-label">Enter &nbsp; Country :</label>
-                        <input id="country" class="form-control" name="listing[country]" type="text"
-                            placeholder="Enter Country " required>
-                    </div>
-                    </div>
-                <div class="mt-3">
-                    <label for="location" class="form-label">Enter &nbsp; Location :</label>
-                    <input id="location" class="form-control" name="listing[location]" type="text"
-                        placeholder="Enter location " required>
-                </div>
-
-                <div class="mt-3">
-                    <button type="submit" class="btn btn-danger  offset-2 mt-4" style="width: 30vw;" >Add Listing</button>
-                </div>
-            </form>
+      <div class="mt-3">
+        <label for="image" class="form-label">
+          Enter &nbsp; Image &nbsp; Link :</label
+        >
+        <input
+          id="image"
+          class="form-control"
+          name="listing[image]"
+          type="text"
+          placeholder="Enter image url "
+        />
+      </div>
+      <div class="row">
+        <div class="mt-3 col-md-4">
+          <label for="price" class="form-label">Enter &nbsp; Price :</label>
+          <input
+            id="price"
+            class="form-control"
+            name="listing[price]"
+            type="number"
+            placeholder="Enter Price"
+            step="500"
+            required
+          />
         </div>
-    </div>
+        <div class="mt-3 col-md-8">
+          <label for="country" class="form-label">Enter &nbsp; Country :</label>
+          <input
+            id="country"
+            class="form-control"
+            name="listing[country]"
+            type="text"
+            placeholder="Enter Country "
+            required
+          />
+        </div>
+      </div>
+      <div class="mt-3">
+        <label for="location" class="form-label">Enter &nbsp; Location :</label>
+        <input
+          id="location"
+          class="form-control"
+          name="listing[location]"
+          type="text"
+          placeholder="Enter location "
+          required
+        />
+      </div>
+
+      <div class="mt-3">
+        <button
+          type="submit"
+          class="btn btn-danger offset-2 mt-4"
+          style="width: 30vw"
+        >
+          Add Listing
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

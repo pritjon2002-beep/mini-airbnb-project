@@ -95,3 +95,17 @@ footer {
     background-color: white;
     opacity: .3;
 }
+
+/* show image  */
+
+.show-img { 
+    height: 50vh;
+    width:auto;
+    object-fit: fill;
+}
+
+.show-header{
+    display: inline-block;
+     border-bottom: 3px solid black;
+}
+
