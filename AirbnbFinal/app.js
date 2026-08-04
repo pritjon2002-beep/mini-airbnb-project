@@ -51,10 +51,14 @@ app.get("/listings/new", (req, res) => {
 });
 
 // Create
-app.post("/listings", async (req, res) => {
-    let newListing = new Listing(req.body.listing);
+app.post("/listings", async (req, res , next) => {
+   try{
+     let newListing = new Listing(req.body.listing);
     await newListing.save();
     res.redirect("/listings");
+   }catch(err){
+    next(err);
+   }
 });
 
 // Edit
@@ -103,6 +107,11 @@ app.delete("/listings/:id", async(req,res)=>{
 //     res.send("Listing Saved to Database Sucessfully");
 
 // })
+
+
+app.use((err,req,res,next)=>{
+    res.send("something gone wrong ");
+})
 
 
 // 5. Server Start
