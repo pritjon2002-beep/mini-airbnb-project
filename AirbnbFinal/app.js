@@ -54,6 +54,10 @@ app.get("/listings/new", (req, res) => {
 
 // Create
 app.post("/listings", wrapAsync(async (req, res , next) => {
+    if(!req.body.listing) {
+        throw new CustomExpressError(400, "Please Enter a Valid Listing");
+    }
+    
      let newListing = new Listing(req.body.listing);
     await newListing.save();
     res.redirect("/listings");
