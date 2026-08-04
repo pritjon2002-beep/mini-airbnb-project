@@ -42,10 +42,10 @@ app.get("/", (req, res) => {
 });
 
 // Index
-app.get("/listings", async (req, res) => {
+app.get("/listings", wrapAsync(async (req, res) => {
     let allListings = await Listing.find({});
     res.render("./listings/index.ejs", { allListings });
-});
+}));
 
 // New
 app.get("/listings/new", (req, res) => {
@@ -60,36 +60,36 @@ app.post("/listings", wrapAsync(async (req, res , next) => {
 }));
 
 // Edit
-app.get("/listings/:id/edit", async (req, res) => {
+app.get("/listings/:id/edit", wrapAsync(async (req, res) => {
     let { id } = req.params;
     let listing = await Listing.findById(id);
     res.render("./listings/edit.ejs", { listing });
-});
+}));
 
 // Update
-app.put("/listings/:id", async (req, res) => {
+app.put("/listings/:id", wrapAsync(async (req, res) => {
     let { id } = req.params;
     let listing = req.body.listing;
     await Listing.findByIdAndUpdate(id, listing);
     res.redirect(`/listings/${id}`);
-});
+}));
 
 // Show
-app.get("/listings/:id", async (req, res) => {
+app.get("/listings/:id", wrapAsync(async (req, res) => {
     let { id } = req.params;
     const listing = await Listing.findById(id);
     res.render("listings/show.ejs", { listing });
-});
+}));
 
 // Delete
 
-app.delete("/listings/:id", async(req,res)=>{
+app.delete("/listings/:id", wrapAsync(async(req,res)=>{
     let {id} = req.params;
     let deleteListing = await Listing.findByIdAndDelete(id);
     console.log(deleteListing);
     res.redirect("/listings");
     
-})
+}));
 
 // app.get("/testListing", async(req,res)=> {
 //     let sampleListing = new Listing({
