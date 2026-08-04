@@ -7,6 +7,7 @@ const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const wrapAsync = require("./utils/wrapAsync.js");
+const CustomExpressError  = require("./utils/ExpressError.js");
 
 // 2. Database Connection
 async function database() {
@@ -106,8 +107,14 @@ app.delete("/listings/:id", async(req,res)=>{
 // })
 
 
+app.all( "/{*splat}", (req,res,next)=>{
+    next(new CustomExpressError(404, "Page Not Found"));
+ 
+})
+
 app.use((err,req,res,next)=>{
-    res.send("something gone wrong ");
+let {status= 500 , message} = err;
+res.status(status).send(message);
 })
 
 
