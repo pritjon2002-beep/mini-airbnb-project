@@ -8,7 +8,7 @@ const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const wrapAsync = require("./utils/wrapAsync.js");
 const CustomExpressError  = require("./utils/ExpressError.js");
-
+const listingSchema = require("./schema.js");
 // 2. Database Connection
 async function database() {
     await mongoose.connect("mongodb://127.0.0.1:27017/WanderlustFinal");
@@ -54,10 +54,12 @@ app.get("/listings/new", (req, res) => {
 
 // Create
 app.post("/listings", wrapAsync(async (req, res , next) => {
-    if(!req.body.listing) {
-        throw new CustomExpressError(400, "Please Enter a Valid Data in the listing");
-    }
-
+   let result = listingSchema.validate(req.body);
+   console.log(result);
+   if(result.error){
+    throw new CustomExpressError(400, result.error);
+   }
+   
      let newListing = new Listing(req.body.listing);
     await newListing.save();
     res.redirect("/listings");
@@ -72,9 +74,11 @@ app.get("/listings/:id/edit", wrapAsync(async (req, res) => {
 
 // Update
 app.put("/listings/:id", wrapAsync(async (req, res) => {
-     if(!req.body.listing) {
-        throw new CustomExpressError(400, "Please Enter a Valid Data in the listing");
-    }
+       let result = listingSchema.validate(req.body);
+   console.log(result);
+   if(result.error){
+    throw new CustomExpressError(400, result.error);
+   }
     let { id } = req.params;
     let listing = req.body.listing;
     await Listing.findByIdAndUpdate(id, listing);
