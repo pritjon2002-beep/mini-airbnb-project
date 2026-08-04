@@ -121,7 +121,7 @@ app.all( "/{*splat}", (req,res,next)=>{
 
 app.use((err,req,res,next)=>{
 let {status= 500 , message} = err;
-res.status(status).send(message);
+res.status(status).render("error.ejs", {err});
 })
 
 
