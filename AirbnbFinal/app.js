@@ -41,6 +41,16 @@ app.get("/", (req, res) => {
     res.send("Hello i am home page");
 });
 
+
+const validateListing = (req,res,next)=>{
+    let { error } = listingSchema.validate(req.body);
+    console.log(error);
+    if(error){
+        throw new CustomExpressError(400, error)
+    }else{
+        next();
+    }
+}
 // Index
 app.get("/listings", wrapAsync(async (req, res) => {
     let allListings = await Listing.find({});
@@ -53,13 +63,7 @@ app.get("/listings/new", (req, res) => {
 });
 
 // Create
-app.post("/listings", wrapAsync(async (req, res , next) => {
-   let result = listingSchema.validate(req.body);
-   console.log(result);
-   if(result.error){
-    throw new CustomExpressError(400, result.error);
-   }
-   
+app.post("/listings", validateListing,wrapAsync(async (req, res , next) => {
      let newListing = new Listing(req.body.listing);
     await newListing.save();
     res.redirect("/listings");
@@ -73,12 +77,7 @@ app.get("/listings/:id/edit", wrapAsync(async (req, res) => {
 }));
 
 // Update
-app.put("/listings/:id", wrapAsync(async (req, res) => {
-       let result = listingSchema.validate(req.body);
-   console.log(result);
-   if(result.error){
-    throw new CustomExpressError(400, result.error);
-   }
+app.put("/listings/:id", validateListing,wrapAsync(async (req, res) => {
     let { id } = req.params;
     let listing = req.body.listing;
     await Listing.findByIdAndUpdate(id, listing);
