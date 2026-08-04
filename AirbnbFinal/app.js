@@ -55,9 +55,9 @@ app.get("/listings/new", (req, res) => {
 // Create
 app.post("/listings", wrapAsync(async (req, res , next) => {
     if(!req.body.listing) {
-        throw new CustomExpressError(400, "Please Enter a Valid Listing");
+        throw new CustomExpressError(400, "Please Enter a Valid Data in the listing");
     }
-    
+
      let newListing = new Listing(req.body.listing);
     await newListing.save();
     res.redirect("/listings");
@@ -72,6 +72,9 @@ app.get("/listings/:id/edit", wrapAsync(async (req, res) => {
 
 // Update
 app.put("/listings/:id", wrapAsync(async (req, res) => {
+     if(!req.body.listing) {
+        throw new CustomExpressError(400, "Please Enter a Valid Data in the listing");
+    }
     let { id } = req.params;
     let listing = req.body.listing;
     await Listing.findByIdAndUpdate(id, listing);
