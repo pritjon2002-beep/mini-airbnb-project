@@ -17,16 +17,36 @@
   </div>
 </div>
 
-<div class=" d-flex mt-3">
-  
+<div class=" d-flex mt-3">  
  <a href="/listings/<%= listing.id %>/edit"><button class="btn btn-danger">Edit Listing</button></a>
  <form action="/listings/<%= listing._id %>?_method=delete " method="post">
     <button class="btn btn-dark ms-2">
     Delete Listing
     </button>
-</div>
  </form>
 </div>
+
+<div class="col-8 offset-2 mt-4">
+  <h4>Leave a Review : </h4>
+  <div class="mt-2">
+   <form action="">
+
+    <div>
+      <label for="rating">Rating</label>
+      <input type="range" id="rating" min="1" max="5" name="review[rating]">
+    </div>
+
+    <div>
+      <label for="comment">Describe Your Experience : </label>
+      <textarea name="review[comment]" id="comment" ></textarea>
+    </div>
+
+    <button>Submit</button>
+   </form>
+  </div>
+
+</div>
+
 </div>
 
 </body>
