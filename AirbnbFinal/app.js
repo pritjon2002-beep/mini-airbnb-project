@@ -54,6 +54,18 @@ const validateListing = (req,res,next)=>{
         next();
     }
 }
+
+const validateReview = (req,res,next)=>{
+    let { error } = reviewSchema.validate(req.body);
+    console.log(error);
+    if(error){
+        let errMsg = error.details.map((el) => el.message).join(",");
+        throw new CustomExpressError(400, errMsg)
+    }else{
+        next();
+    }
+}
+
 // Index
 app.get("/listings", wrapAsync(async (req, res) => {
     let allListings = await Listing.find({});
@@ -107,7 +119,7 @@ app.delete("/listings/:id", wrapAsync(async(req,res)=>{
 // Review 
 // Post Route
 
-app.post("/listings/:id/reviews", async(req,res) =>{
+app.post("/listings/:id/reviews",validateReview,wrapAsync(async(req,res) =>{
    let listing = await Listing.findById(req.params.id) ;
    let newReview =   new Review(req.body.review);
 
@@ -122,7 +134,7 @@ app.post("/listings/:id/reviews", async(req,res) =>{
 
    res.redirect("/listings");
    
-});
+}));
 
 // app.get("/testListing", async(req,res)=> {
 //     let sampleListing = new Listing({
