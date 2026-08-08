@@ -39,10 +39,10 @@ image: {
         type: String,
     },
 
-    reviews: {
+    reviews: [{
         type: Schema.Types.ObjectId,
         ref: "Review",
-    }
+    }]
 
 });
 
