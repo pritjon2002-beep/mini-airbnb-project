@@ -111,10 +111,12 @@ app.post("/listings/:id/reviews", async(req,res) =>{
    let listing = await Listing.findById(req.params.id) ;
    let newReview =   new Review(req.body.review);
 
-   await listing.reviews.push(newReview);
+    let newRev =  await newReview.save();
+
+   await listing.reviews.push(newReview._id);
 
    let newList = await listing.save();
-   let newRev =  await newReview.save();
+  
 
    console.log(`added review : ${newList} review details : ${newRev}`);
 
@@ -136,6 +138,7 @@ app.post("/listings/:id/reviews", async(req,res) =>{
 //     res.send("Listing Saved to Database Sucessfully");
 
 // })
+
 
 
 app.all( "/{*splat}", (req,res,next)=>{
