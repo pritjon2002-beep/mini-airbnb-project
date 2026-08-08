@@ -9,6 +9,8 @@ const ejsMate = require("ejs-mate");
 const wrapAsync = require("./utils/wrapAsync.js");
 const CustomExpressError  = require("./utils/ExpressError.js");
 const listingSchema = require("./schema.js");
+const Review = require('./models/review.js');
+
 // 2. Database Connection
 async function database() {
     await mongoose.connect("mongodb://127.0.0.1:27017/WanderlustFinal");
@@ -101,6 +103,28 @@ app.delete("/listings/:id", wrapAsync(async(req,res)=>{
     res.redirect("/listings");
     
 }));
+
+// Review 
+// Post Route
+
+app.post("/listings/:id/reviews", async(req,res) =>{
+   let listing = await Listing.findById(req.params.id) ;
+   let newReview = await  new Review(req.body.review);
+
+   await listing.reviews.push(newReview);
+
+   let newlist = await listing.save();
+   let newRev =  await newReview.save();
+
+   console.log("list added ");
+   console.log(newlist);
+   console.log("Review added ");
+   console.log(newRev);
+
+   res.send(`review added : ${newRev}`);
+
+   
+});
 
 // app.get("/testListing", async(req,res)=> {
 //     let sampleListing = new Listing({

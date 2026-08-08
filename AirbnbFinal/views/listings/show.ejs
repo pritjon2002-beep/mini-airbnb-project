@@ -25,11 +25,15 @@
     </button>
  </form>
 </div>
+
+
 <hr>
+
+
 <div class="col-8  mt-4">
   <h4>Leave a Review : </h4>
   <div class="mt-2">
-   <form action="">
+   <form action="/listings/<%= listing.id %>/reviews" method="post">
 
     <div>
       <label for="rating" class="form-label mt-2">Rating</label>
