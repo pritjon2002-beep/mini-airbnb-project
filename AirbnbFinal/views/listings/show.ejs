@@ -50,6 +50,14 @@
 
     <button class="btn btn-outline-dark mt-3" >Submit</button>
    </form>
+<br>
+   <hr> <br>
+
+   <h4>All Reviews : </h4> <br>
+   <ul > 
+   <% for(let review of listing.reviews){ %>
+   <li> <%= review.comment %> &nbsp; ,  &nbsp;<%= review.rating %> star </li> <br>
+  <% } %>   </ul>
   </div>
 
 </div>
