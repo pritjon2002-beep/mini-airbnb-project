@@ -113,16 +113,12 @@ app.post("/listings/:id/reviews", async(req,res) =>{
 
    await listing.reviews.push(newReview);
 
-   let newlist = await listing.save();
+   let newList = await listing.save();
    let newRev =  await newReview.save();
 
-   console.log("list added ");
-   console.log(newlist);
-   console.log("Review added ");
-   console.log(newRev);
+   console.log(`added review : ${newList} review details : ${newRev}`);
 
-   res.send(`review added : ${newRev}`);
-
+   res.redirect("/listings");
    
 });
 
