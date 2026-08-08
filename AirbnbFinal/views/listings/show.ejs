@@ -48,16 +48,24 @@
     </div>
     
 
-    <button class="btn btn-outline-dark mt-3" >Submit</button>
+    <button class="btn btn-outline-dark mt-4" >Submit</button>
    </form>
 <br>
    <hr> <br>
 
-   <h4>All Reviews : </h4> <br>
-   <ul > 
-   <% for(let review of listing.reviews){ %>
-   <li> <%= review.comment %> &nbsp; ,  &nbsp;<%= review.rating %> star </li> <br>
-  <% } %>   </ul>
+
+   <div class="row">
+     <h4>Recenty Leaved Reviews </h4>
+    <% for(let review of listing.reviews){ %>
+    <div class=" card col-5 m-3">
+      <div class="card-body mb-3 mt-3">
+        <h5 class="card-title"> Review : </h5>
+        <p class="card-text fs-5"><%= review.comment %></p>
+        <p class="card-text"><%= review.rating %> STAR RATING</p>
+      </div>
+    </div>
+ <% } %> 
+   </div>
   </div>
 
 </div>
