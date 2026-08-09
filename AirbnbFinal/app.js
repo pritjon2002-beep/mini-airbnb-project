@@ -163,6 +163,8 @@ app.delete(
 
     await Review.findByIdAndDelete(reviewId);
 
+    await Listing.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
+
     res.redirect(`/listings/${id}`);
   }),
 );
