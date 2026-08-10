@@ -1,25 +1,25 @@
 const express = require("express");
 const router = express.Router();
 
-//users
+//posts
 //index route
 router.get("/", async (req, res) => {
-  res.send("get for  users");
+  res.send("get for  posts");
 });
 
 //show route
 router.get("/:id", async (req, res) => {
-  res.send("get for show users");
+  res.send("get for show posts");
 });
 
 //post route
 router.post("/", async (req, res) => {
-  res.send("post for add users");
+  res.send(" for add posts");
 });
 
 //delete route
 router.delete("/:id", async (req, res) => {
-  res.send("post for delete users");
+  res.send(" for delete posts");
 });
 
 module.exports = router;
