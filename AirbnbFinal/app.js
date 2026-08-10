@@ -12,6 +12,7 @@ const { listingSchema, reviewSchema } = require("./schema.js");
 const Review = require("./models/review.js");
 
 const listings = require("./routes/listing.js");
+const reviews = require("./routes/review.js");
 
 // 2. Database Connection
 async function database() {
@@ -44,71 +45,12 @@ app.get("/", (req, res) => {
   res.send("Hello i am home page");
 });
 
-const validateListing = (req, res, next) => {
-  let { error } = listingSchema.validate(req.body);
-  console.log(error);
-  if (error) {
-    let errMsg = error.details.map((el) => el.message).join(",");
-    throw new CustomExpressError(400, errMsg);
-  } else {
-    next();
-  }
-};
-
-const validateReview = (req, res, next) => {
-  let { error } = reviewSchema.validate(req.body);
-  console.log(error);
-  if (error) {
-    let errMsg = error.details.map((el) => el.message).join(",");
-    throw new CustomExpressError(400, errMsg);
-  } else {
-    next();
-  }
-};
-
+//listing route
 app.use("/listings", listings);
 
-// Review
-// Review Post Route
+//review route
+app.use("/listings/:id/reviews", reviews);
 
-app.post(
-  "/listings/:id/reviews",
-  validateReview,
-  wrapAsync(async (req, res) => {
-    let listing = await Listing.findById(req.params.id);
-    let newReview = new Review(req.body.review);
-
-    let newRev = await newReview.save();
-
-    await listing.reviews.push(newReview._id);
-
-    let newList = await listing.save();
-
-    console.log(`added review : ${newList} review details : ${newRev}`);
-
-    res.redirect(`/listings/${listing._id}`);
-  }),
-);
-
-// Review Delete route
-app.delete(
-  "/listings/:id/reviews/:reviewId",
-  wrapAsync(async (req, res) => {
-    let { id, reviewId } = req.params;
-
-    let delReview = await Review.findByIdAndDelete(reviewId);
-
-    let listing = await Listing.findByIdAndUpdate(id, {
-      $pull: { reviews: reviewId },
-    });
-
-    console.log(
-      `deleted review : ${delReview} , New listing detail is ${listing}`,
-    );
-
-    res.redirect(`/listings/${id}`);
-  }),
-);
 // app.get("/testListing", async(req,res)=> {
 //     let sampleListing = new Listing({
 //         title: "Mumbai Beach",
