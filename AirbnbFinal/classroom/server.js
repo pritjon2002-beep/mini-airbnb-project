@@ -1,30 +1,13 @@
 const express = require("express");
 const app = express();
+const users = require("./routes/user.js");
 
 app.get("/", (req, res) => {
   res.send("expressRouter");
 });
 
-//users
-//index route
-app.get("/users", async (req, res) => {
-  console.log("get for  users");
-});
-
-//show route
-app.get("/users/:id", async (req, res) => {
-  console.log("get for show users");
-});
-
-//post route
-app.post("/users", async (req, res) => {
-  console.log("post for add users");
-});
-
-//delete route
-app.delete("/users", async (req, res) => {
-  console.log("post for delete users");
-});
+//using routes/user.js file
+app.use("/", users);
 
 //posts
 //index route
