@@ -11,6 +11,8 @@ const CustomExpressError = require("./utils/ExpressError.js");
 const { listingSchema, reviewSchema } = require("./schema.js");
 const Review = require("./models/review.js");
 
+const listings = require("./routes/listing.js");
+
 // 2. Database Connection
 async function database() {
   await mongoose.connect("mongodb://127.0.0.1:27017/WanderlustFinal");
@@ -64,74 +66,7 @@ const validateReview = (req, res, next) => {
   }
 };
 
-// Index
-app.get(
-  "/listings",
-  wrapAsync(async (req, res) => {
-    let allListings = await Listing.find({});
-    res.render("./listings/index.ejs", { allListings });
-  }),
-);
-
-// New
-app.get("/listings/new", (req, res) => {
-  res.render("./listings/new.ejs");
-});
-
-// Create
-app.post(
-  "/listings",
-  validateListing,
-  wrapAsync(async (req, res, next) => {
-    let newListing = new Listing(req.body.listing);
-    await newListing.save();
-    res.redirect("/listings");
-  }),
-);
-
-// Edit
-app.get(
-  "/listings/:id/edit",
-  wrapAsync(async (req, res) => {
-    let { id } = req.params;
-    let listing = await Listing.findById(id);
-    res.render("./listings/edit.ejs", { listing });
-  }),
-);
-
-// Update
-app.put(
-  "/listings/:id",
-  validateListing,
-  wrapAsync(async (req, res) => {
-    let { id } = req.params;
-    let listing = req.body.listing;
-    await Listing.findByIdAndUpdate(id, listing);
-    res.redirect(`/listings/${id}`);
-  }),
-);
-
-// Show
-app.get(
-  "/listings/:id",
-  wrapAsync(async (req, res) => {
-    let { id } = req.params;
-    const listing = await Listing.findById(id).populate("reviews");
-    res.render("listings/show.ejs", { listing });
-  }),
-);
-
-// Delete
-
-app.delete(
-  "/listings/:id",
-  wrapAsync(async (req, res) => {
-    let { id } = req.params;
-    let deleteListing = await Listing.findByIdAndDelete(id);
-    console.log(deleteListing);
-    res.redirect("/listings");
-  }),
-);
+app.use("/listings", listings);
 
 // Review
 // Review Post Route
