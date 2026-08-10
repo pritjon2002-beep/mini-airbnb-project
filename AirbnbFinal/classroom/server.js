@@ -10,7 +10,7 @@ app.get("/", (req, res) => {
 //using routes/user.js file
 app.use("/users", users);
 
-//using routes/user.js file
+//using routes/post.js file
 app.use("/posts", posts);
 
 app.listen(8080, () => {
