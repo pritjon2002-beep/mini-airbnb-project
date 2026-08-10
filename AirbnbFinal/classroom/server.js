@@ -7,7 +7,7 @@ app.get("/", (req, res) => {
 });
 
 //using routes/user.js file
-app.use("/", users);
+app.use("/users", users);
 
 //posts
 //index route
