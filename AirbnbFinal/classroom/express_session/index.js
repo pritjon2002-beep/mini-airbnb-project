@@ -19,13 +19,20 @@ app.use(flash());
 app.get("/register", (req, res) => {
   let { name = "anonymous" } = req.query;
   req.session.name = name;
+  if (name == "anonymous") {
+    req.flash("failure", "user not found");
+  } else {
+    req.flash("success", "user registered successfully");
+  }
+
   console.log(name);
-  req.flash("success", "user registered successfully");
+
   res.redirect("/hello");
 });
 
 app.get("/hello", (req, res) => {
-  res.locals.message = req.flash("success");
+  res.locals.successMsg = req.flash("success");
+  res.locals.failureMsg = req.flash("failure");
   res.render("show.ejs", {
     name: req.session.name,
   });
