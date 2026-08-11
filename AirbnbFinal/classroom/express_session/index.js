@@ -10,6 +10,17 @@ const sessionOption = {
 
 app.use(session(sessionOption));
 
+app.get("/register", (req, res) => {
+  let { name = "anonymous" } = req.query;
+  req.session.name = name;
+  console.log(name);
+  res.send(name);
+});
+
+app.get("/hello", (req, res) => {
+  res.send(`Hello `);
+});
+
 app.get("/", (req, res) => {
   res.send("welcome to express-session");
 });
