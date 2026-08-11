@@ -16,6 +16,12 @@ const sessionOption = {
 app.use(session(sessionOption));
 app.use(flash());
 
+app.use((req, res, next) => {
+  res.locals.successMsg = req.flash("success");
+  res.locals.failureMsg = req.flash("failure");
+  next();
+});
+
 app.get("/register", (req, res) => {
   let { name = "anonymous" } = req.query;
   req.session.name = name;
@@ -31,8 +37,6 @@ app.get("/register", (req, res) => {
 });
 
 app.get("/hello", (req, res) => {
-  res.locals.successMsg = req.flash("success");
-  res.locals.failureMsg = req.flash("failure");
   res.render("show.ejs", {
     name: req.session.name,
   });
