@@ -25,9 +25,9 @@ app.get("/register", (req, res) => {
 });
 
 app.get("/hello", (req, res) => {
+  res.locals.message = req.flash("success");
   res.render("show.ejs", {
     name: req.session.name,
-    message: req.flash("success"),
   });
 });
 
