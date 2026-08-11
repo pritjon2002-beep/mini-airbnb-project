@@ -2,13 +2,13 @@ const express = require("express");
 const app = express();
 const session = require("express-session");
 
-app.use(
-  session({
-    secret: "express-session-secret",
-    resave: "false",
-    saveUninitialized: "true",
-  }),
-);
+const sessionOption = {
+  secret: "express-session-secret",
+  resave: "false",
+  saveUninitialized: "true",
+};
+
+app.use(session(sessionOption));
 
 app.get("/", (req, res) => {
   res.send("welcome to express-session");
