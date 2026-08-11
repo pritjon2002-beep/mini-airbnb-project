@@ -14,7 +14,7 @@ app.get("/register", (req, res) => {
   let { name = "anonymous" } = req.query;
   req.session.name = name;
   console.log(name);
-  res.send(name);
+  res.redirect("/hello");
 });
 
 app.get("/hello", (req, res) => {
