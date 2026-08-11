@@ -2,11 +2,19 @@ const express = require("express");
 const app = express();
 const users = require("./routes/user.js");
 const posts = require("./routes/post.js");
+const cookieParser = require("cookie-parser");
+app.use(cookieParser());
 
 app.get("/getcookies", async (req, res) => {
   res.cookie("greet", "Namaste");
   res.cookie("madeIn", "Nepal");
   res.send("we send a cookies");
+  console.dir(req.cookies);
+});
+
+app.get("/greet", (req, res) => {
+  let { name = "anoymous" } = req.cookies;
+  res.send(`Hi,${name}`);
 });
 
 app.get("/", (req, res) => {
