@@ -3,6 +3,12 @@ const app = express();
 const users = require("./routes/user.js");
 const posts = require("./routes/post.js");
 
+app.get("/getcookies", async (req, res) => {
+  res.cookie("greet", "Namaste");
+  res.cookie("madeIn", "Nepal");
+  res.send("we send a cookies");
+});
+
 app.get("/", (req, res) => {
   res.send("expressRouter");
 });
