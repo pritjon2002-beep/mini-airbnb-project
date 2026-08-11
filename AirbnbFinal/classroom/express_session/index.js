@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const session = require("express-session");
+const flash = require("connect-flash");
 
 const sessionOption = {
   secret: "express-session-secret",
@@ -9,11 +10,13 @@ const sessionOption = {
 };
 
 app.use(session(sessionOption));
+app.use(flash());
 
 app.get("/register", (req, res) => {
   let { name = "anonymous" } = req.query;
   req.session.name = name;
   console.log(name);
+  req.flash("success", "user registered successfully");
   res.redirect("/hello");
 });
 
