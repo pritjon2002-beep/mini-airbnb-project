@@ -18,7 +18,7 @@ app.get("/register", (req, res) => {
 });
 
 app.get("/hello", (req, res) => {
-  res.send(`Hello `);
+  res.send(`Hello ${req.session.name}`);
 });
 
 app.get("/", (req, res) => {
