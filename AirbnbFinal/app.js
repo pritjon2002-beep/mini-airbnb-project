@@ -6,6 +6,7 @@ const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const CustomExpressError = require("./utils/ExpressError.js");
+const session = require("express-session");
 
 const listings = require("./routes/listing.js");
 const reviews = require("./routes/review.js");
@@ -34,6 +35,14 @@ app.engine("ejs", ejsMate); // we can use layouts for diff boilerplate.
 
 app.use(express.static(path.join(__dirname, "public"))); // we join public folder now we can use static files
 
+//session
+const sessionOption = {
+  secret: "mysecretcode",
+  resave: false,
+  saveUninitialized: true,
+};
+
+app.use(session(sessionOption));
 // 4. Routes
 
 // Home
