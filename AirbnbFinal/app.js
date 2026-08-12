@@ -7,6 +7,7 @@ const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const CustomExpressError = require("./utils/ExpressError.js");
 const session = require("express-session");
+const flash = require("connect-flash");
 
 const listings = require("./routes/listing.js");
 const reviews = require("./routes/review.js");
@@ -48,6 +49,8 @@ const sessionOption = {
 };
 
 app.use(session(sessionOption));
+app.use(flash());
+
 // 4. Routes
 
 // Home
