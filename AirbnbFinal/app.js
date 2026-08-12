@@ -51,6 +51,10 @@ const sessionOption = {
 app.use(session(sessionOption));
 app.use(flash());
 
+app.use((req, res, next) => {
+  res.locals.successMsg = req.flash("success");
+  next();
+});
 // 4. Routes
 
 // Home
