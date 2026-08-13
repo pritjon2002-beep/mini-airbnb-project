@@ -12,8 +12,9 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const User = require("./models/user.js");
 
-const listings = require("./routes/listing.js");
-const reviews = require("./routes/review.js");
+const listingRouter = require("./routes/listing.js");
+const reviewRouter = require("./routes/review.js");
+const userRouter = require("./routes/user.js");
 
 // 2. Database Connection
 async function database() {
@@ -86,11 +87,14 @@ app.get("/", (req, res) => {
   res.send("Hello i am home page");
 });
 
-//listing route
-app.use("/listings", listings);
+//listing router
+app.use("/listings", listingRouter);
 
-//review route
-app.use("/listings/:id/reviews", reviews);
+//review router
+app.use("/listings/:id/reviews", reviewRouter);
+
+//user router
+app.use("/", userRouter);
 
 // app.get("/testListing", async(req,res)=> {
 //     let sampleListing = new Listing({
