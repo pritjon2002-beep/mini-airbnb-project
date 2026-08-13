@@ -68,7 +68,7 @@ app.use((req, res, next) => {
   next();
 });
 
-//add a user to db
+//add a user to db ->
 app.get("/demo", async (req, res) => {
   let fakeUser = new User({
     email: "fake@gmail.com",
