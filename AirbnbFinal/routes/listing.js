@@ -51,7 +51,7 @@ router.get(
     let { id } = req.params;
     let listing = await Listing.findById(id);
     if (!listing) {
-      req.flash("failure", "Listing Doesnot Exists!");
+      req.flash("error", "Listing Doesnot Exists!");
       return res.redirect("/listings");
     }
     res.render("./listings/edit.ejs", { listing });
@@ -78,7 +78,7 @@ router.get(
     let { id } = req.params;
     const listing = await Listing.findById(id).populate("reviews");
     if (!listing) {
-      req.flash("failure", "Listing Doesnot Exists!");
+      req.flash("error", "Listing Doesnot Exists!");
       return res.redirect("/listings");
     }
     res.render("listings/show.ejs", { listing });
