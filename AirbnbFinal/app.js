@@ -57,10 +57,10 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(new LocalStrategy(User.authenticate()));
+passport.use(new LocalStrategy(User.authenticate()));
 
-app.serializedUser(serializedUser());
-app.deserializedUser(deserializedUser());
+passport.serializedUser(serializedUser()); //Stores the user's ID in the session after login.
+passport.deserializedUser(deserializedUser()); //Uses the stored ID to find the user again on later requests.
 
 app.use((req, res, next) => {
   res.locals.successMsg = req.flash("success");
