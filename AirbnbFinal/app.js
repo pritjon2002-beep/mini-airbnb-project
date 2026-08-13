@@ -65,7 +65,7 @@ passport.deserializeUser(User.deserializeUser()); //Uses the stored ID to find t
 
 app.use((req, res, next) => {
   res.locals.successMsg = req.flash("success");
-  res.locals.failureMsg = req.flash("failure");
+  res.locals.failureMsg = req.flash("error");
   next();
 });
 

@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/user.js");
 const wrapAsync = require("../utils/wrapAsync");
+const passport = require("passport");
 
 //singup route
 //get route
@@ -24,9 +25,28 @@ router.post(
       req.flash("success", "SignUp Successfully , Welcome to Listings");
       res.redirect("/listings");
     } catch (error) {
-      req.flash("failure", "Username Already Used");
+      req.flash("error", "Username Already Used");
       res.redirect("/signup");
     }
+  }),
+);
+
+//login route
+//get route
+router.get("/login", (req, res) => {
+  res.render("users/login.ejs");
+});
+
+//post route
+router.post(
+  "/login",
+  passport.authenticate("local", {
+    failureRedirect: "/login",
+    failureFlash: true,
+  }),
+  wrapAsync(async (req, res) => {
+    req.flash("success", "logged In Successfully");
+    res.redirect("/listings");
   }),
 );
 
