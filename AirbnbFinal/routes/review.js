@@ -8,7 +8,6 @@ const Review = require("../models/review.js");
 
 const validateReview = (req, res, next) => {
   let { error } = reviewSchema.validate(req.body);
-  console.log(error);
   if (error) {
     let errMsg = error.details.map((el) => el.message).join(",");
     throw new CustomExpressError(400, errMsg);

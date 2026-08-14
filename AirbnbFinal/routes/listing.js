@@ -8,7 +8,6 @@ const { isLoggedIn } = require("../middleware.js");
 
 const validateListing = (req, res, next) => {
   let { error } = listingSchema.validate(req.body);
-  console.log(error);
   if (error) {
     let errMsg = error.details.map((el) => el.message).join(",");
     throw new CustomExpressError(400, errMsg);
@@ -29,17 +28,9 @@ router.get(
 );
 
 // New
-router.get(
-  "/new",
-  isLoggedIn,
-  wrapAsync((req, res) => {
-    if (!req.isAuthenticated()) {
-      req.flash("error", "login is required to create listing");
-      return res.redirect("/login");
-    }
-    res.render("./listings/new.ejs");
-  }),
-);
+router.get("/new", isLoggedIn, (req, res) => {
+  res.render("./listings/new.ejs");
+});
 
 // Create
 router.post(
