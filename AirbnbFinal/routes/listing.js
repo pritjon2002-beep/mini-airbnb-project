@@ -4,6 +4,7 @@ const Listing = require("../models/listing.js");
 const wrapAsync = require("../utils/wrapAsync.js");
 const CustomExpressError = require("../utils/ExpressError.js");
 const { listingSchema, reviewSchema } = require("../schema.js");
+const { isLoggedIn } = require("../middleware.js");
 
 const validateListing = (req, res, next) => {
   let { error } = listingSchema.validate(req.body);
@@ -28,18 +29,23 @@ router.get(
 );
 
 // New
-router.get("/new", (req, res) => {
-  if (!req.isAuthenticated()) {
-    req.flash("error", "login is required to create listing");
-    return res.redirect("/login");
-  }
-  res.render("./listings/new.ejs");
-});
+router.get(
+  "/new",
+  isLoggedIn,
+  wrapAsync((req, res) => {
+    if (!req.isAuthenticated()) {
+      req.flash("error", "login is required to create listing");
+      return res.redirect("/login");
+    }
+    res.render("./listings/new.ejs");
+  }),
+);
 
 // Create
 router.post(
   "/",
   validateListing,
+  isLoggedIn,
   wrapAsync(async (req, res, next) => {
     let newListing = new Listing(req.body.listing);
     await newListing.save();
@@ -51,6 +57,7 @@ router.post(
 // Edit
 router.get(
   "/:id/edit",
+  isLoggedIn,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     let listing = await Listing.findById(id);
@@ -66,6 +73,7 @@ router.get(
 router.put(
   "/:id",
   validateListing,
+  isLoggedIn,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     let listing = req.body.listing;
@@ -93,6 +101,7 @@ router.get(
 
 router.delete(
   "/:id",
+  isLoggedIn,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     let deleteListing = await Listing.findByIdAndDelete(id);
