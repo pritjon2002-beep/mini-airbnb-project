@@ -2,19 +2,9 @@ const express = require("express");
 const router = express.Router({ mergeParams: true }); // merge params -> able to use parents parameter
 const Listing = require("../models/listing.js");
 const wrapAsync = require("../utils/wrapAsync.js");
-const CustomExpressError = require("../utils/ExpressError.js");
-const { listingSchema, reviewSchema } = require("../schema.js");
+const { reviewSchema } = require("../schema.js");
 const Review = require("../models/review.js");
-
-const validateReview = (req, res, next) => {
-  let { error } = reviewSchema.validate(req.body);
-  if (error) {
-    let errMsg = error.details.map((el) => el.message).join(",");
-    throw new CustomExpressError(400, errMsg);
-  } else {
-    next();
-  }
-};
+const { validateReview } = require("../middleware.js");
 
 //Review routes
 
