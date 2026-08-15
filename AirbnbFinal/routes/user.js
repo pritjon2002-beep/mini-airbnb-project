@@ -14,7 +14,7 @@ router.get("/signup", (req, res) => {
 //post route
 router.post(
   "/signup",
-  wrapAsync(async (req, res) => {
+  wrapAsync(async (req, res, next) => {
     try {
       let { username, email, password } = req.body;
       let newUser = new User({
@@ -23,8 +23,17 @@ router.post(
       });
       let registeredUser = await User.register(newUser, password);
       console.log(registeredUser);
-      req.flash("success", "SignUp Successfully , Welcome to Listings");
-      res.redirect("/listings");
+
+      req.login(registeredUser, (err) => {
+        if (err) {
+          return next(err);
+        }
+        req.flash(
+          "success",
+          "SignUp and Login Successfully , Welcome to Listings",
+        );
+        res.redirect("/listings");
+      });
     } catch (error) {
       req.flash("error", "Username Already Used");
       res.redirect("/signup");
