@@ -64,11 +64,16 @@ router.get(
 // Update
 router.put(
   "/:id",
-  validateListing,
   isLoggedIn,
+  validateListing,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     let listing = req.body.listing;
+    let listingId = await Listing.findById(id);
+    if (!listingId.owner._id.equals(res.locals.currUser._id)) {
+      req.flash("error", "you are not the owner of this listing");
+      return res.redirect(`/listings/${id}`);
+    }
     await Listing.findByIdAndUpdate(id, listing);
     req.flash("success", "Listing Updated Successfully");
     res.redirect(`/listings/${id}`);
