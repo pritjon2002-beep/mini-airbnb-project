@@ -19,7 +19,7 @@
 
 <div class=" d-flex mt-3 pb-3">  
  <a href="/listings/<%= listing.id %>/edit"><button class="btn btn-danger">Edit Listing</button></a>
- <form action="/listings/<%= listing._id %>?_method=delete " method="post">
+ <form action="/listings/<%= listing._id %>?_method=delete " method="post" onsubmit="return confirm('Are you sure to delete this Listing')">
     <button class="btn btn-dark ms-2">
     Delete Listing
     </button>
