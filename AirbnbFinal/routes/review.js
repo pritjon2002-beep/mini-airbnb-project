@@ -2,30 +2,26 @@ const express = require("express");
 const router = express.Router({ mergeParams: true }); // merge params -> able to use parents parameter
 const Listing = require("../models/listing.js");
 const wrapAsync = require("../utils/wrapAsync.js");
-const CustomExpressError = require("../utils/ExpressError.js");
-const { listingSchema, reviewSchema } = require("../schema.js");
+const { reviewSchema } = require("../schema.js");
 const Review = require("../models/review.js");
-
-const validateReview = (req, res, next) => {
-  let { error } = reviewSchema.validate(req.body);
-  console.log(error);
-  if (error) {
-    let errMsg = error.details.map((el) => el.message).join(",");
-    throw new CustomExpressError(400, errMsg);
-  } else {
-    next();
-  }
-};
+const {
+  validateReview,
+  isLoggedIn,
+  isReviewAuthor,
+} = require("../middleware.js");
 
 //Review routes
 
 // Review Post Route
 router.post(
   "/",
+  isLoggedIn,
   validateReview,
   wrapAsync(async (req, res) => {
     let listing = await Listing.findById(req.params.id);
     let newReview = new Review(req.body.review);
+
+    newReview.author = req.user._id;
 
     listing.reviews.push(newReview._id);
 
@@ -42,6 +38,8 @@ router.post(
 // Review Delete route
 router.delete(
   "/:reviewId",
+  isLoggedIn,
+  isReviewAuthor,
   wrapAsync(async (req, res) => {
     let { id, reviewId } = req.params;
 

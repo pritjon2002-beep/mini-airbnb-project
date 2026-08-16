@@ -47,6 +47,11 @@ const listingSchema = new mongoose.Schema({
       ref: "Review",
     },
   ],
+
+  owner: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
 });
 
 // mongoose middleware to handle deletion
