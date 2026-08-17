@@ -5,7 +5,7 @@ const wrapAsync = require("../utils/wrapAsync.js");
 const { isLoggedIn, isOwner, validateListing } = require("../middleware.js");
 const listingController = require("../controller/listing.js");
 
-//listings
+//listings route
 
 // Index
 router.get("/", wrapAsync(listingController.index));
