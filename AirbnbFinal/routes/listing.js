@@ -7,19 +7,19 @@ const listingController = require("../controller/listings.js");
 
 //listings route
 
-// Index
-router.get("/", wrapAsync(listingController.index));
+router
+  .route("/")
+  //Home or Listings or index route
+  .get(wrapAsync(listingController.index))
+  // Create Route
+  .post(
+    validateListing,
+    isLoggedIn,
+    wrapAsync(listingController.createListing),
+  );
 
 // New
 router.get("/new", isLoggedIn, listingController.showNewForm);
-
-// Create
-router.post(
-  "/",
-  validateListing,
-  isLoggedIn,
-  wrapAsync(listingController.createListing),
-);
 
 // Edit
 router.get(
