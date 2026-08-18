@@ -18,6 +18,19 @@ router
     wrapAsync(listingController.createListing),
   );
 
+router
+  .route("/:id")
+  //Show Route
+  .get(wrapAsync(listingController.showListing))
+  //Update Route
+  .put(
+    isLoggedIn,
+    isOwner,
+    validateListing,
+    wrapAsync(listingController.updateListing),
+  )
+  .delete(isOwner, isLoggedIn, wrapAsync(listingController.deleteListing));
+
 // New
 router.get("/new", isLoggedIn, listingController.showNewForm);
 
@@ -27,27 +40,6 @@ router.get(
   isLoggedIn,
   isOwner,
   wrapAsync(listingController.editListingForm),
-);
-
-// Update
-router.put(
-  "/:id",
-  isLoggedIn,
-  isOwner,
-  validateListing,
-  wrapAsync(listingController.updateListing),
-);
-
-// Show
-router.get("/:id", wrapAsync(listingController.showListing));
-
-// Delete
-
-router.delete(
-  "/:id",
-  isOwner,
-  isLoggedIn,
-  wrapAsync(listingController.deleteListing),
 );
 
 module.exports = router;
