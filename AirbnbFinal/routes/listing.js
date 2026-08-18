@@ -18,6 +18,9 @@ router
     wrapAsync(listingController.createListing),
   );
 
+// New Listing Route
+router.get("/new", isLoggedIn, listingController.showNewForm);
+
 router
   .route("/:id")
   //Show Route
@@ -30,9 +33,6 @@ router
     wrapAsync(listingController.updateListing),
   )
   .delete(isOwner, isLoggedIn, wrapAsync(listingController.deleteListing));
-
-// New
-router.get("/new", isLoggedIn, listingController.showNewForm);
 
 // Edit
 router.get(
