@@ -1,6 +1,7 @@
 const Review = require("../models/review");
 const Listing = require("../models/listing");
 
+//create Route
 module.exports.createReview = async (req, res) => {
   let listing = await Listing.findById(req.params.id);
   let newReview = new Review(req.body.review);
@@ -18,6 +19,7 @@ module.exports.createReview = async (req, res) => {
   res.redirect(`/listings/${listing._id}`);
 };
 
+//destroy route
 module.exports.destroyReview = async (req, res) => {
   let { id, reviewId } = req.params;
 
