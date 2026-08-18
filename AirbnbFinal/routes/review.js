@@ -10,7 +10,7 @@ const {
   isReviewAuthor,
 } = require("../middleware.js");
 
-const reviewController = require("../controller/review.js");
+const reviewController = require("../controller/reviews.js");
 
 //Review routes
 
