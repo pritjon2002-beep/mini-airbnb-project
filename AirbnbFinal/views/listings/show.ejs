@@ -65,7 +65,7 @@
         <p class="card-text fs-5"><%= review.comment %></p>
         <p class="card-text"><%= review.rating %> STAR RATING</p>
       </div>
-      <form action="/listings/<%= listing.id %>/reviews/<%= review._id %>?_method=DELETE" method="post" class="mb-3">
+      <form action="/listings/<%= listing.id %>/reviews/<%= review._id %>?_method=DELETE" method="post" class="mb-3" onsubmit="return confirm('are you sure to delete this review')">
         <button class="btn btn-sm btn-warning">Delete</button>
       </form>
     </div>
