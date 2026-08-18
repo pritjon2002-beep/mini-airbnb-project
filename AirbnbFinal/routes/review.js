@@ -3,7 +3,7 @@ const router = express.Router({ mergeParams: true }); // merge params -> able to
 const Listing = require("../models/listing.js");
 const wrapAsync = require("../utils/wrapAsync.js");
 const { reviewSchema } = require("../schema.js");
-const Review = require("../models/reviews.js");
+const Review = require("../models/review.js");
 const {
   validateReview,
   isLoggedIn,
