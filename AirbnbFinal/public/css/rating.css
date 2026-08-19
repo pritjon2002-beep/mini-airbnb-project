@@ -1,0 +1,335 @@
+
+   /* STARABILITY HEARTBEAT */
+   
+
+.starability-heartbeat {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+
+  width: max-content;
+  padding: 0;
+  border: 0;
+  margin: 0;
+}
+
+.starability-heartbeat > legend {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* Hide radio buttons */
+.starability-heartbeat > input {
+  position: absolute;
+  opacity: 0;
+}
+
+/* Stars */
+.starability-heartbeat > label {
+  display: block;
+
+  width: 45px;
+  height: 45px;
+
+  margin-right: 4px;
+
+  cursor: pointer;
+
+  font-size: 0;
+}
+
+/* Empty star */
+.starability-heartbeat > label::before {
+  content: "★";
+
+  display: block;
+
+  width: 45px;
+  height: 45px;
+
+  font-size: 45px;
+  line-height: 40px;
+  text-align: center;
+
+  color: #d6d6d6;
+
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+
+
+   /* HOVER */
+   
+
+/* 1 STAR */
+.starability-heartbeat:has(#rate1:hover)
+  label[for="rate1"]::before {
+  color: #ffc107;
+}
+
+
+/* 2 STARS */
+.starability-heartbeat:has(#rate2:hover)
+  label[for="rate1"]::before,
+
+.starability-heartbeat:has(#rate2:hover)
+  label[for="rate2"]::before {
+  color: #ffc107;
+}
+
+
+/* 3 STARS */
+.starability-heartbeat:has(#rate3:hover)
+  label[for="rate1"]::before,
+
+.starability-heartbeat:has(#rate3:hover)
+  label[for="rate2"]::before,
+
+.starability-heartbeat:has(#rate3:hover)
+  label[for="rate3"]::before {
+  color: #ffc107;
+}
+
+
+/* 4 STARS */
+.starability-heartbeat:has(#rate4:hover)
+  label[for="rate1"]::before,
+
+.starability-heartbeat:has(#rate4:hover)
+  label[for="rate2"]::before,
+
+.starability-heartbeat:has(#rate4:hover)
+  label[for="rate3"]::before,
+
+.starability-heartbeat:has(#rate4:hover)
+  label[for="rate4"]::before {
+  color: #ffc107;
+}
+
+
+/* 5 STARS */
+.starability-heartbeat:has(#rate5:hover)
+  label[for="rate1"]::before,
+
+.starability-heartbeat:has(#rate5:hover)
+  label[for="rate2"]::before,
+
+.starability-heartbeat:has(#rate5:hover)
+  label[for="rate3"]::before,
+
+.starability-heartbeat:has(#rate5:hover)
+  label[for="rate4"]::before,
+
+.starability-heartbeat:has(#rate5:hover)
+  label[for="rate5"]::before {
+  color: #ffc107;
+}
+
+
+
+   /* SELECTED RATING */
+   
+
+/* 1 STAR */
+.starability-heartbeat:has(#rate1:checked)
+  label[for="rate1"]::before {
+  color: #ffc107;
+}
+
+/* 2 STARS */
+.starability-heartbeat:has(#rate2:checked)
+  label[for="rate1"]::before,
+
+.starability-heartbeat:has(#rate2:checked)
+  label[for="rate2"]::before {
+  color: #ffc107;
+}
+
+/* 3 STARS */
+.starability-heartbeat:has(#rate3:checked)
+  label[for="rate1"]::before,
+
+.starability-heartbeat:has(#rate3:checked)
+  label[for="rate2"]::before,
+
+.starability-heartbeat:has(#rate3:checked)
+  label[for="rate3"]::before {
+  color: #ffc107;
+}
+
+/* 4 STARS */
+.starability-heartbeat:has(#rate4:checked)
+  label[for="rate1"]::before,
+
+.starability-heartbeat:has(#rate4:checked)
+  label[for="rate2"]::before,
+
+.starability-heartbeat:has(#rate4:checked)
+  label[for="rate3"]::before,
+
+.starability-heartbeat:has(#rate4:checked)
+  label[for="rate4"]::before {
+  color: #ffc107;
+}
+
+/* 5 STARS */
+.starability-heartbeat:has(#rate5:checked)
+  label[for="rate1"]::before,
+
+.starability-heartbeat:has(#rate5:checked)
+  label[for="rate2"]::before,
+
+.starability-heartbeat:has(#rate5:checked)
+  label[for="rate3"]::before,
+
+.starability-heartbeat:has(#rate5:checked)
+  label[for="rate4"]::before,
+
+.starability-heartbeat:has(#rate5:checked)
+  label[for="rate5"]::before {
+  color: #ffc107;
+}
+
+
+
+   /* HEARTBEAT ANIMATION */
+   
+
+@keyframes heartbeat {
+  0% {
+    transform: scale(1);
+  }
+
+  20% {
+    transform: scale(1.35);
+  }
+
+  40% {
+    transform: scale(1);
+  }
+
+  60% {
+    transform: scale(1.2);
+  }
+
+  80% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+
+/* Animate the selected star */
+.starability-heartbeat:has(#rate1:checked)
+  label[for="rate1"]::before,
+
+.starability-heartbeat:has(#rate2:checked)
+  label[for="rate2"]::before,
+
+.starability-heartbeat:has(#rate3:checked)
+  label[for="rate3"]::before,
+
+.starability-heartbeat:has(#rate4:checked)
+  label[for="rate4"]::before,
+
+.starability-heartbeat:has(#rate5:checked)
+  label[for="rate5"]::before {
+  animation: heartbeat 0.7s ease-in-out;
+}
+
+
+
+   /* FOCUS */
+   
+
+.starability-heartbeat > input:focus + label::before {
+  outline: 2px dotted #777;
+  outline-offset: 3px;
+}
+
+/*  REVIEW RATING RESULT */
+
+.starability-result {
+  display: inline-flex;
+  align-items: center;
+
+  margin: 0;
+  padding: 0;
+
+  font-size: 0;
+}
+
+/* Create 5 stars */
+.starability-result::before {
+  content: "★★★★★";
+  font-size: 45px;
+  color: #d5d5d5;
+}
+
+/* Rating 1 */
+.starability-result[data-rating="1"]::before {
+  background: linear-gradient(
+    to right,
+    #ffc107 20%,
+    #d5d5d5 20%
+  );
+
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  color: transparent;
+}
+
+/* Rating 2 */
+.starability-result[data-rating="2"]::before {
+  background: linear-gradient(
+    to right,
+    #ffc107 40%,
+    #d5d5d5 40%
+  );
+
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  color: transparent;
+}
+
+/* Rating 3 */
+.starability-result[data-rating="3"]::before {
+  background: linear-gradient(
+    to right,
+    #ffc107 60%,
+    #d5d5d5 60%
+  );
+
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  color: transparent;
+}
+
+/* Rating 4 */
+.starability-result[data-rating="4"]::before {
+  background: linear-gradient(
+    to right,
+    #ffc107 80%,
+    #d5d5d5 80%
+  );
+
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  color: transparent;
+}
+
+/* Rating 5 */
+.starability-result[data-rating="5"]::before {
+  color: #ffc107;
+}
