@@ -39,57 +39,53 @@
 
 <fieldset class="starability-heartbeat">
   <legend class="mb-0">Rating:</legend>
+<input
+    type="radio"
+    id="rate1"
+    name="review[rating]"
+    value="1"
+  />
+  <label for="rate1" title="Terrible">1 star</label>
+
+  <input
+    type="radio"
+    id="rate2"
+    name="review[rating]"
+    value="2"
+  />
+  <label for="rate2" title="Not good">2 stars</label>
+
+  <input
+    type="radio"
+    id="rate3"
+    name="review[rating]"
+    value="3"
+  />
+  <label for="rate3" title="Average">3 stars</label>
+
+  <input
+    type="radio"
+    id="rate4"
+    name="review[rating]"
+    value="4"
+  />
+  <label for="rate4" title="Very good">4 stars</label>
+
+  <input
+    type="radio"
+    id="rate5"
+    name="review[rating]"
+    value="5"
+  />
+  <label for="rate5" title="Amazing">5 stars</label>
 
   <input
     type="radio"
     id="no-rate"
-    class="input-no-rate mt-0"
     name="review[rating]"
     value="0"
     checked
-    aria-label="No rating."
   />
-
-  <input
-    type="radio"
-    id="heartbeat-rate1"
-    name="review[rating]"
-    value="1"
-  />
-  <label for="heartbeat-rate1" title="Terrible">1 star</label>
-
-  <input
-    type="radio"
-    id="heartbeat-rate2"
-    name="review[rating]"
-    value="2"
-  />
-  <label for="heartbeat-rate2" title="Not good">2 stars</label>
-
-  <input
-    type="radio"
-    id="heartbeat-rate3"
-    name="review[rating]"
-    value="3"
-  />
-  <label for="heartbeat-rate3" title="Average">3 stars</label>
-
-  <input
-    type="radio"
-    id="heartbeat-rate4"
-    name="review[rating]"
-    value="4"
-  />
-  <label for="heartbeat-rate4" title="Very good">4 stars</label>
-
-  <input
-    type="radio"
-    id="heartbeat-rate5"
-    name="review[rating]"
-    value="5"
-  />
-  <label for="heartbeat-rate5" title="Amazing">5 stars</label>
-
 
   <!-- 0 STAR / DEFAULT -->
   <input
@@ -97,7 +93,7 @@
     id="no-rate"
     class="input-no-rate"
     name="review[rating]"
-    value="0"
+    value="1"
     checked
   />
 </fieldset>
@@ -125,8 +121,8 @@
     <div class=" card col-5 m-3">
       <div class="card-body mb-3 mt-3">
         <h5 class="card-title"> @ <%= review.author.username %> </h5>
+        <p class="starability-result" data-rating="<%= review.rating %>"><%= review.rating %></p>
         <p class="card-text fs-5"><%= review.comment %></p>
-        <p class="card-text"><%= review.rating %> STAR RATING</p>
       </div>
       <form action="/listings/<%= listing.id %>/reviews/<%= review._id %>?_method=DELETE" method="post" class="mb-3" onsubmit="return confirm('are you sure to delete this review')">
         <button class="btn btn-sm btn-warning">Delete</button>
