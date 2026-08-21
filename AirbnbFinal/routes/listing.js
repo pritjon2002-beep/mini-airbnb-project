@@ -6,7 +6,8 @@ const { isLoggedIn, isOwner, validateListing } = require("../middleware.js");
 const listingController = require("../controller/listings.js");
 //multer
 const multer = require("multer");
-const upload = multer({ dest: "uploads/" }); // saves files in uploads file
+const { storage } = require("../cloudConfig.js");
+const upload = multer({ storage }); // saves files in uploads file
 
 //listings route
 
