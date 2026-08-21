@@ -7,7 +7,7 @@ const listingController = require("../controller/listings.js");
 //multer
 const multer = require("multer");
 const { storage } = require("../cloudConfig.js");
-const upload = multer({ storage }); // saves files in uploads file
+const upload = multer({ storage }); // saves files in cloudinary storage  file
 
 //listings route
 
@@ -16,14 +16,12 @@ router
   //Home or Listings or index route
   .get(wrapAsync(listingController.index))
   // Create Route
-  // .post(
-  //   validateListing,
-  //   isLoggedIn,
-  //   wrapAsync(listingController.createListing),
-  // );
-  .post(upload.single("listing[image]"), (req, res) => {
-    res.send(req.file);
-  });
+  .post(
+    isLoggedIn,
+    upload.single("listing[image]"),
+    validateListing,
+    wrapAsync(listingController.createListing),
+  );
 
 // New Listing Route
 router.get("/new", isLoggedIn, listingController.showNewForm);
