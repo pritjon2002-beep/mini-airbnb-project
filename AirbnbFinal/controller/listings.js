@@ -33,7 +33,15 @@ module.exports.editListingForm = async (req, res) => {
     req.flash("error", "Listing Doesnot Exists!");
     return res.redirect("/listings");
   }
-  res.render("./listings/edit.ejs", { listing });
+
+  let originalImage = listing.image.url;
+  let finalImage = originalImage.replace(
+    "/upload",
+    "/upload/h_250,w_300,e_blur:200",
+  );
+  console.log(finalImage);
+
+  res.render("./listings/edit.ejs", { listing, finalImage });
 };
 
 // Update Route
