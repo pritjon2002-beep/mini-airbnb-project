@@ -22,6 +22,7 @@
         style="align-items: center"
         class="needs-validation"
         novalidate
+      enctype="multipart/form-data"
       >
         <div class="mb-3">
           <label for="title" class="form-label">Title : </label>
@@ -52,15 +53,13 @@
         <div class="invalid-feedback">Enter a Valid Description</div>
         </div>
         <div class="mb-3">
-          <label for="image" class="form-label">Image URL : </label>
+          <label for="image" class="form-label">Image: </label>
           <input
             id="image"
-            name="listing[image][url]"
-            type="text"
-            value="<%= listing.image.url %>"
+            name="listing[image]"
+            type="file"
             class="form-control "
             style="height: 50px"
-            required
           />
             <div class="valid-feedback">Valid Image URL</div>
         <div class="invalid-feedback">Enter a Valid Image URL</div>
