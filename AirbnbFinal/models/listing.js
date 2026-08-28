@@ -42,6 +42,18 @@ const listingSchema = new mongoose.Schema({
     type: Schema.Types.ObjectId,
     ref: "User",
   },
+
+  geometry: {
+    type: {
+      type: String,
+      enum: ["Point"], // only allow "Point" type
+      required: true,
+    },
+    coordinates: {
+      type: [Number], // [longitude, latitude]
+      required: true,
+    },
+  },
 });
 
 // mongoose middleware to handle deletion
