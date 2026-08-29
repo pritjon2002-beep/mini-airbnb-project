@@ -7,4 +7,12 @@ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
   attribution: "&copy; OpenStreetMap contributors",
 }).addTo(map);
 
-L.marker([coordinates[1], coordinates[0]]).addTo(map);
+const redIcon = L.icon({
+  iconUrl:
+    "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png",
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+});
+
+L.marker([coordinates[1], coordinates[0]], { icon: redIcon }).addTo(map);
