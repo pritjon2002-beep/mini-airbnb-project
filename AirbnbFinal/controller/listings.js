@@ -1,4 +1,5 @@
 const Listing = require("../models/listing");
+const axios = require("axios");
 
 // Home / Index Route
 module.exports.index = async (req, res) => {
@@ -16,10 +17,34 @@ module.exports.createListing = async (req, res, next) => {
   let url = req.file.path;
   let filename = req.file.filename;
 
+  //step-1: ask Nominatim to convert location text into coordinates
+  let geoRes = await axios.get("https://nominatim.openstreetmap.org/search", {
+    params: {
+      q: `${req.body.listing.location}, ${req.body.listing.country}`,
+      format: "json",
+      limit: 1,
+    },
+    headers: { "User-Agent": "wanderlust-app" },
+  });
+
+  //step-2: if no result found , location is invalid - stop here
+  if (geoRes.data.length === 0) {
+    req.flash("error", "Invalid location. Please enter a valid place.");
+    return res.redirect("/listings/new");
+  }
+
+  //step-3: extract latitude and longitude form response
+  const { lat, lon } = geoRes.data[0];
+
   let newListing = new Listing(req.body.listing);
   newListing.owner = req.user._id;
-
   newListing.image = { url, filename };
+
+  //step-4: Attack geometry in GeoJSON format
+  newListing.geometry = {
+    type: "Point",
+    coordinates: [parseFloat(lon), parseFloat(lat)],
+  };
   await newListing.save();
   req.flash("success", "New Listing Created Successfully");
   res.redirect("/listings");
