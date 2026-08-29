@@ -15,4 +15,18 @@ const redIcon = L.icon({
   popupAnchor: [1, -34],
 });
 
-L.marker([coordinates[1], coordinates[0]], { icon: redIcon }).addTo(map);
+const marker = L.marker([coordinates[1], coordinates[0]], {
+  icon: redIcon,
+}).addTo(map);
+
+marker.bindPopup(
+  `Welcome to <b>${listingTitle}</b><br>Exact Location is provided after booking!`,
+);
+
+marker.on("mouseover", function () {
+  marker.openPopup();
+});
+
+marker.on("mouseout", function () {
+  marker.closePopup();
+});
