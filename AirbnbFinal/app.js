@@ -89,11 +89,6 @@ app.get("/demo", async (req, res) => {
 
 // 4. Routes
 
-// Home
-app.get("/", (req, res) => {
-  res.send("Hello i am home page");
-});
-
 //listing router
 app.use("/listings", listingRouter);
 
