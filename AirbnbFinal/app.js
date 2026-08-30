@@ -1,4 +1,4 @@
-// 1. Imports
+// 1. Imports everything
 
 //dotenv
 if (process.env.NODE_ENV != "production") {
