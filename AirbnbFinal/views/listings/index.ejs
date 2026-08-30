@@ -28,13 +28,19 @@
     font-size: 1rem;
   }
 
-  .tax-toggle-body{
-    margin-top: 0.5rem;
-    margin-left: 4rem;
-  }
-
   .tax-info {
     display: none;
+  }
+  
+  .tax-toggle {
+    border: 1px solid black;
+    border-radius: 1rem;
+    height: 3rem;
+    padding: 1rem;
+    margin-left: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 </style>
 <body>
@@ -87,7 +93,7 @@
 
       <div class="tax-toggle">
         <div class="form-check-reverse form-switch tax-toggle-body">
-  <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+  <input class="form-check-input " type="checkbox" id="flexSwitchCheckDefault">
   <label class="form-check-label" for="flexSwitchCheckDefault">Display Total After Taxes</label>
 </div>
       </div>
