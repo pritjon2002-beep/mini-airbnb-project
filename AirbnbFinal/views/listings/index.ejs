@@ -32,6 +32,10 @@
     margin-top: 0.5rem;
     margin-left: 4rem;
   }
+
+  .tax-info {
+    display: none;
+  }
 </style>
 <body>
 
@@ -99,8 +103,10 @@
   <div class="card-body">
     <p class="card-text">
      <b> <%= listing.title %></b> <br>
-      &#8377 <%= listing.price.toLocaleString("en-IN")  %> / night
+      &#8377 <%= listing.price.toLocaleString("en-IN")  %> / night,
+      <span class=" tax-info ms-2">18% GST</span>
     </p>
+    
   </div>
 </div>
    </a>
@@ -112,7 +118,14 @@
 <script>
   let taxSwitch = document.getElementById("flexSwitchCheckDefault");
   taxSwitch.addEventListener("click", ()=>{
-    console.log("clicked");
+    let taxInfo = document.getElementsByClassName("tax-info");
+    for(let info of taxInfo){
+      if(info.style.display != "inline"){
+        info.style.display = "inline";
+      }else{
+        info.style.display = "none";
+      }
+    }
     
   })
 </script>
