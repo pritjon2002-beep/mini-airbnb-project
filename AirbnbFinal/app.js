@@ -13,7 +13,7 @@ const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const CustomExpressError = require("./utils/ExpressError.js");
 const session = require("express-session");
-const MongoStore = require("connect-mongo");
+const { MongoStore } = require("connect-mongo");
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
@@ -25,6 +25,7 @@ const userRouter = require("./routes/user.js");
 
 //uses google dns instead of system to solve :- Error: querySrv ECONNREFUSED _mongodb._tcp.cluster0airbnb.gzqhiz1.mongodb.net
 const dns = require("dns");
+const { error } = require("console");
 dns.setServers(["8.8.8.8", "8.8.4.4"]);
 
 const dbURL = process.env.MONGO_URL;
@@ -53,8 +54,23 @@ app.engine("ejs", ejsMate); // we can use layouts for diff boilerplate.
 
 app.use(express.static(path.join(__dirname, "public"))); // we join public folder now we can use static files
 
+//saves mongo session
+const store = MongoStore.create({
+  mongoUrl: dbURL,
+  crypto: {
+    secret: "mysecretcode",
+  },
+  touchAfter: 24 * 60 * 60,
+  ttl: 30 * 24 * 60 * 60,
+});
+
+store.on("error", () => {
+  console.log("Error in Mongo session", error);
+});
+
 //session
 const sessionOption = {
+  store,
   secret: "mysecretcode",
   resave: false,
   saveUninitialized: true,
