@@ -109,3 +109,46 @@ footer {
      border-bottom: 3px solid black;
 }
 
+/* airbnb icons */
+
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 2.5rem;
+   margin-left: 3vh;
+  }
+  
+  .filter {
+    text-align: center;
+    margin-right: 2rem;
+    opacity: 0.7;
+  }
+
+  .filter:hover {
+    opacity: 1;
+    cursor: pointer;
+    
+  }
+
+  .filter p {
+    font-size: 0.8rem;
+  }
+
+  .filter div i {
+    font-size: 1rem;
+  }
+
+  .tax-info {
+    display: none;
+  }
+  
+  .tax-toggle {
+    border: 1px solid black;
+    border-radius: 1rem;
+    height: 3rem;
+    padding: 1rem;
+    margin-left: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
