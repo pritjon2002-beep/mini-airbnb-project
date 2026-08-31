@@ -22,6 +22,10 @@ const listingRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
 
+//uses google dns instead of system to solve :- Error: querySrv ECONNREFUSED _mongodb._tcp.cluster0airbnb.gzqhiz1.mongodb.net
+const dns = require("dns");
+dns.setServers(["8.8.8.8", "8.8.4.4"]);
+
 const dbURL = process.env.MONGO_URL;
 
 // 2. Database Connection
