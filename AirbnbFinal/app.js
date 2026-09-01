@@ -58,7 +58,7 @@ app.use(express.static(path.join(__dirname, "public"))); // we join public folde
 const store = MongoStore.create({
   mongoUrl: dbURL,
   crypto: {
-    secret: "mysecretcode",
+    secret: process.env.SECRET,
   },
   touchAfter: 24 * 60 * 60,
   ttl: 30 * 24 * 60 * 60,
@@ -71,7 +71,7 @@ store.on("error", () => {
 //session
 const sessionOption = {
   store,
-  secret: "mysecretcode",
+  secret: process.env.SECRET,
   resave: false,
   saveUninitialized: true,
   cookie: {
