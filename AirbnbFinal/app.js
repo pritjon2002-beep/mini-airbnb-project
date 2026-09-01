@@ -100,17 +100,6 @@ app.use((req, res, next) => {
   next();
 });
 
-//add a user to db ->
-app.get("/demo", async (req, res) => {
-  let fakeUser = new User({
-    email: "fake@gmail.com",
-    username: "fakeuser",
-  });
-
-  let registeredUser = await User.register(fakeUser, "password2000");
-  res.send(registeredUser);
-});
-
 // 4. Routes
 
 //listing router
