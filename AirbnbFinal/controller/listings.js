@@ -73,6 +73,28 @@ module.exports.editListingForm = async (req, res) => {
 module.exports.updateListing = async (req, res) => {
   let { id } = req.params;
   let listing = req.body.listing;
+
+  // Re-geocode using the (possibly updated) location + country
+  let geoRes = await axios.get("https://nominatim.openstreetmap.org/search", {
+    params: {
+      q: `${listing.location}, ${listing.country}`,
+      format: "json",
+      limit: 1,
+    },
+    headers: { "User-Agent": "wanderlust-app" },
+  });
+
+  if (geoRes.data.length === 0) {
+    req.flash("error", "Invalid location. Please enter a valid place.");
+    return res.redirect(`/listings/${id}/edit`);
+  }
+
+  const { lat, lon } = geoRes.data[0];
+  listing.geometry = {
+    type: "Point",
+    coordinates: [parseFloat(lon), parseFloat(lat)],
+  };
+
   let updatedListing = await Listing.findByIdAndUpdate(id, listing);
 
   if (typeof req.file !== "undefined") {
