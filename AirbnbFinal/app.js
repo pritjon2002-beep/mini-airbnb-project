@@ -98,6 +98,11 @@ app.use((req, res, next) => {
   next();
 });
 
+//redirect to /listings
+app.get("/", (req, res) => {
+  res.redirect("/listings");
+});
+
 // 4. Routes
 
 //listing router
