@@ -1,4 +1,7 @@
 {
+  "engines": {
+    "node": "24.13.0"
+  },
   "name": "airbnbfinal",
   "version": "1.0.0",
   "description": "",
@@ -15,6 +18,7 @@
     "cloudinary": "^1.41.3",
     "cls": "^0.1.5",
     "connect-flash": "^0.1.1",
+    "connect-mongo": "^6.0.0",
     "cookie-parser": "^1.4.7",
     "dotenv": "^17.4.2",
     "ejs": "^3.1.10",
