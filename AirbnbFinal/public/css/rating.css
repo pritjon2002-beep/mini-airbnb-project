@@ -333,3 +333,9 @@
 .starability-result[data-rating="5"]::before {
   color: #ffc107;
 }
+@media (max-width: 767px){
+ .added-review{
+    width: 100%;
+    margin: 2rem;
+  }
+}

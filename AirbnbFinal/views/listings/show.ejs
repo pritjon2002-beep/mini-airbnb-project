@@ -70,10 +70,10 @@
 <% } %>
 
 <% if(listing.reviews.length > 0) { %>
-<div class="row mb-4">
+<div class="row mb-4 ">
   <h4>Recenty Leaved Reviews </h4>
   <% for(let review of listing.reviews){ %>
-  <div class="card col-5 m-3">
+  <div class="card added-review col-5 m-3">
     <div class="card-body mb-3 mt-3">
       <h5 class="card-title"> @ <i><%= review.author.username %> </i></h5>
       <p class="starability-result" data-rating="<%= review.rating %>"><%= review.rating %></p>
