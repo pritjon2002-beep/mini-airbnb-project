@@ -32,7 +32,6 @@ body {
         margin-top: 1rem;
         max-height: 50vh;
         overflow-y: auto;
-        gap: 10rem;
        
     }
      .navbar-collapse .navbar-nav {
@@ -52,7 +51,6 @@ body {
     width: 100%;
     margin: 0.5rem 0;
   }
-
 }
 
 @media (max-width: 767px) {
@@ -143,9 +141,40 @@ footer {
 
 .show-img { 
     height: 50vh;
-    width:auto;
+    width:100%;
     object-fit: fill;
+    border-radius: 1rem;
 }
+
+@media (min-width: 992px) {
+  .show-img {
+    width: 70%;
+    display: block;
+    margin: 0 ;
+    align-self: flex-start;
+  }
+  .show-wrapper{
+    margin-left: 15%;
+  }
+  .description{
+   max-width: 65%;
+  }
+  #map {
+    width: 70%;
+    margin: 0 !important;
+     }
+  .review-experience{
+    max-width: 70%;
+  }
+}
+
+.description{
+   margin-bottom: 0;
+  }
+
+  #map {
+     border-radius: 1rem;
+  }
 
 .show-header{
     display: inline-block;
