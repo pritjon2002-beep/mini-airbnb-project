@@ -154,7 +154,8 @@ footer {
     align-self: flex-start;
   }
   .show-wrapper{
-    margin-left: 15%;
+    margin-left: 10%;
+    margin-right: 10%;
   }
   .description{
    max-width: 65%;
