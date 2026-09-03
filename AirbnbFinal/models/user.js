@@ -8,6 +8,10 @@ const userSchema = new Schema({
     required: true,
   },
   //username and password is automatically added by passport-local-mongoose
+
+  googleId: {
+    type: String,
+  },
 });
 
 userSchema.plugin(passportLocalMongoose); // implement username , pass , hashing and salting
