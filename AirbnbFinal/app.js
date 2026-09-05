@@ -31,7 +31,6 @@ const { error } = require("console");
 dns.setServers(["8.8.8.8", "8.8.4.4"]);
 
 const dbURL = process.env.MONGO_URL;
-console.log("DB URL from env:", dbURL);
 // 2. Database Connection
 async function database() {
   await mongoose.connect(dbURL);
