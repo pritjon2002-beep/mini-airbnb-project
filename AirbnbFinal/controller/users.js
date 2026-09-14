@@ -71,3 +71,21 @@ module.exports.showProfile = async (req, res) => {
 
   res.render("users/profile.ejs", { user, bookingsCount, listingsCount });
 };
+
+// profile pic edit
+module.exports.renderEditProfile = async (req, res) => {
+  let user = await User.findById(req.user._id);
+  res.render("users/edit-profile.ejs", { user });
+};
+
+module.exports.updateProfile = async (req, res) => {
+  let user = await User.findById(req.user._id);
+
+  if (req.file) {
+    user.profileImage = req.file.path;
+  }
+
+  await user.save();
+  req.flash("success", "Profile updated successfully");
+  res.redirect("/profile");
+};
