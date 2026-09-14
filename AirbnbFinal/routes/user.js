@@ -6,6 +6,9 @@ const passport = require("passport");
 const { isLoggedIn, saveRedirectUrl } = require("../middleware.js");
 const userController = require("../controller/users.js");
 const bookingController = require("../controller/booking.js");
+const multer = require("multer");
+const { storage } = require("../cloudConfig.js");
+const upload = multer({ storage });
 
 //singup route
 router
