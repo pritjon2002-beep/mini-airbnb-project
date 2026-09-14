@@ -109,6 +109,17 @@
 </div>
    </a>
   <% } %>
+  <% if(totalPages > 1) { %>
+<nav class="mt-4 mt-5 pag">
+  <ul class="pagination justify-content-center">
+    <% for(let i = 1; i <= totalPages; i++) { %>
+      <li class="page-item <%= i === currentPage ? 'active' : '' %>">
+        <a class="page-link" href="/listings?page=<%= i %><%= sort ? '&sort=' + sort : '' %>"><%= i %></a>
+      </li>
+    <% } %>
+  </ul>
+</nav>
+<% } %>
  </div>
 
 <script>
