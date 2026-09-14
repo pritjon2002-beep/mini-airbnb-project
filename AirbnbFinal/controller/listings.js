@@ -1,5 +1,6 @@
 const Listing = require("../models/listing");
 const axios = require("axios");
+const User = require("../models/user.js");
 
 // Home / Index Route
 module.exports.index = async (req, res) => {
