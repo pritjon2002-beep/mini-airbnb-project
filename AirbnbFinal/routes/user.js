@@ -6,6 +6,9 @@ const passport = require("passport");
 const { isLoggedIn, saveRedirectUrl } = require("../middleware.js");
 const userController = require("../controller/users.js");
 const bookingController = require("../controller/booking.js");
+const multer = require("multer");
+const { storage } = require("../cloudConfig.js");
+const upload = multer({ storage });
 
 //singup route
 router
@@ -58,5 +61,17 @@ router.get("/mybooking", isLoggedIn, wrapAsync(bookingController.myBookings));
 
 //wishlist route
 router.get("/wishlist", isLoggedIn, wrapAsync(userController.showWishlist));
+
+//profile route
+router.get("/profile", isLoggedIn, wrapAsync(userController.showProfile));
+
+// profile pic
+router.get("/profile/edit", isLoggedIn, userController.renderEditProfile);
+router.put(
+  "/profile",
+  isLoggedIn,
+  upload.single("profileImage"),
+  wrapAsync(userController.updateProfile),
+);
 
 module.exports = router;

@@ -1,0 +1,23 @@
+<% layout("/layouts/boilerplate.ejs") %>
+
+<div class="show-wrapper text-center mt-4">
+  <img src="<%= user.profileImage %>" alt="Profile" class="rounded-circle mb-3" style="width: 120px; height: 120px; object-fit: cover;">
+  <h3><%= user.username %></h3>
+  <p class="text-muted"><%= user.email %></p>
+
+  <div class="d-flex justify-content-center gap-4 mt-4">
+    <div>
+      <h4><%= listingsCount %></h4>
+      <p>Listings</p>
+    </div>
+    <div>
+      <h4><%= bookingsCount %></h4>
+      <p>Bookings</p>
+    </div>
+  </div>
+
+  <div class="mt-4">
+    <a href="/wishlist" class="btn btn-outline-dark me-2">My Wishlist</a>
+    <a href="/mybooking" class="btn btn-outline-dark">My Bookings</a>
+  </div>
+</div>
