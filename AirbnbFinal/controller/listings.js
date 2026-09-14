@@ -3,7 +3,16 @@ const axios = require("axios");
 
 // Home / Index Route
 module.exports.index = async (req, res) => {
-  let allListings = await Listing.find({});
+  let { sort } = req.query;
+  let sortOption = {};
+
+  if (sort === "asc") {
+    sortOption.price = 1;
+  } else if (sort === "desc") {
+    sortOption.price = -1;
+  }
+
+  let allListings = await Listing.find({}).sort(sortOption);
   res.render("./listings/index.ejs", { allListings });
 };
 
