@@ -56,4 +56,7 @@ router.get("/logout", userController.logout);
 //my booking
 router.get("/mybooking", isLoggedIn, wrapAsync(bookingController.myBookings));
 
+//wishlist route
+router.get("/wishlist", isLoggedIn, wrapAsync(userController.showWishlist));
+
 module.exports = router;
