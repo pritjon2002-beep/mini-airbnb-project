@@ -12,8 +12,24 @@ module.exports.index = async (req, res) => {
     sortOption.price = -1;
   }
 
-  let allListings = await Listing.find({}).sort(sortOption);
-  res.render("./listings/index.ejs", { allListings });
+  let page = parseInt(req.query.page) || 1;
+  let limit = 8;
+  let skip = (page - 1) * limit;
+
+  let totalListings = await Listing.countDocuments({});
+  let totalPages = Math.ceil(totalListings / limit);
+
+  let allListings = await Listing.find({})
+    .sort(sortOption)
+    .skip(skip)
+    .limit(limit);
+
+  res.render("./listings/index.ejs", {
+    allListings,
+    currentPage: page,
+    totalPages,
+    sort,
+  });
 };
 
 // New Route
