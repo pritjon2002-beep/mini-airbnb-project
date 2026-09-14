@@ -13,7 +13,7 @@ module.exports.index = async (req, res) => {
   }
 
   let page = parseInt(req.query.page) || 1;
-  let limit = 8;
+  let limit = 12;
   let skip = (page - 1) * limit;
 
   let totalListings = await Listing.countDocuments({});
