@@ -58,6 +58,14 @@ body {
     height: auto;
     padding: 1rem;
   }
+  .edit-profile-page{
+  margin-left: 25%;
+  margin-right: 25%;
+  padding-top: 30%;
+  }
+  .main-profile{
+    padding-top: 10%;
+  }
 }
 
 .fa-compass {
