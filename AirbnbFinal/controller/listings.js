@@ -75,6 +75,24 @@ module.exports.createListing = async (req, res, next) => {
   res.redirect("/listings");
 };
 
+module.exports.toggleWishlist = async (req, res) => {
+  let { id } = req.params;
+  let user = await User.findById(req.user._id);
+
+  let index = user.savedListings.indexOf(id);
+
+  if (index === -1) {
+    user.savedListings.push(id);
+    req.flash("success", "Added to wishlist");
+  } else {
+    user.savedListings.splice(index, 1);
+    req.flash("success", "Removed from wishlist");
+  }
+
+  await user.save();
+  res.redirect(`/listings/${id}`);
+};
+
 // Edit Route
 module.exports.editListingForm = async (req, res) => {
   let { id } = req.params;
