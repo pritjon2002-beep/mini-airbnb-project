@@ -19,6 +19,11 @@ const userSchema = new Schema({
       ref: "Listing",
     },
   ],
+
+  profileImage: {
+    type: String,
+    default: "https://api.dicebear.com/7.x/initials/svg?seed=default",
+  },
 });
 
 userSchema.plugin(passportLocalMongoose); // implement username , pass , hashing and salting
