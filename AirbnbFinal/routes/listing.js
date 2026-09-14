@@ -35,6 +35,13 @@ router.get(
   wrapAsync(listingController.filterByCategory),
 );
 
+//favourite route
+router.post(
+  "/:id/wishlist",
+  isLoggedIn,
+  wrapAsync(listingController.toggleWishlist),
+);
+
 router
   .route("/:id")
   //Show Route
