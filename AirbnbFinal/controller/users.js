@@ -1,4 +1,6 @@
 const User = require("../models/user");
+const Booking = require("../models/booking.js");
+const Listing = require("../models/listing.js");
 
 //signup get
 module.exports.renderSignupForm = (req, res) => {
@@ -59,4 +61,13 @@ module.exports.logout = (req, res, next) => {
 module.exports.showWishlist = async (req, res) => {
   let user = await User.findById(req.user._id).populate("savedListings");
   res.render("users/wishlist.ejs", { savedListings: user.savedListings });
+};
+
+//show profile
+module.exports.showProfile = async (req, res) => {
+  let user = await User.findById(req.user._id);
+  let bookingsCount = await Booking.countDocuments({ user: req.user._id });
+  let listingsCount = await Listing.countDocuments({ owner: req.user._id });
+
+  res.render("users/profile.ejs", { user, bookingsCount, listingsCount });
 };
