@@ -184,7 +184,12 @@ module.exports.searchListings = async (req, res) => {
       { country: { $regex: q, $options: "i" } },
     ],
   });
-  res.render("./listings/index.ejs", { allListings });
+  res.render("./listings/index.ejs", {
+    allListings,
+    currentPage: 1,
+    totalPages: 1,
+    sort: null,
+  });
 };
 
 //filter by category
