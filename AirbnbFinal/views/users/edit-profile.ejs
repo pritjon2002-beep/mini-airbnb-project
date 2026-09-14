@@ -1,0 +1,13 @@
+<% layout("/layouts/boilerplate.ejs") %>
+
+<div class="show-wrapper mt-4">
+  <h3>Edit Profile</h3>
+  <form action="/profile?_method=PUT" method="POST" enctype="multipart/form-data">
+    <div class="mb-3">
+      <img src="<%= user.profileImage %>" alt="Current" class="rounded-circle mb-2" style="width: 100px; height: 100px; object-fit: cover;">
+      <label class="form-label d-block">Upload new picture</label>
+      <input type="file" name="profileImage" class="form-control" accept="image/*">
+    </div>
+    <button class="btn btn-danger">Save Changes</button>
+  </form>
+</div>
