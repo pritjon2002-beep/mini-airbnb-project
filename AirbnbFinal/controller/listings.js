@@ -191,5 +191,10 @@ module.exports.searchListings = async (req, res) => {
 module.exports.filterByCategory = async (req, res) => {
   let { category } = req.params;
   let allListings = await Listing.find({ category: category });
-  res.render("./listings/index.ejs", { allListings });
+  res.render("./listings/index.ejs", {
+    allListings,
+    currentPage: 1,
+    totalPages: 1,
+    sort: null,
+  });
 };
