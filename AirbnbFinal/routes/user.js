@@ -62,4 +62,13 @@ router.get("/wishlist", isLoggedIn, wrapAsync(userController.showWishlist));
 //profile route
 router.get("/profile", isLoggedIn, wrapAsync(userController.showProfile));
 
+// profile pic
+router.get("/profile/edit", isLoggedIn, userController.renderEditProfile);
+router.put(
+  "/profile",
+  isLoggedIn,
+  upload.single("profileImage"),
+  wrapAsync(userController.updateProfile),
+);
+
 module.exports = router;
