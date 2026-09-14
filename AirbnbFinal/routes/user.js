@@ -59,4 +59,7 @@ router.get("/mybooking", isLoggedIn, wrapAsync(bookingController.myBookings));
 //wishlist route
 router.get("/wishlist", isLoggedIn, wrapAsync(userController.showWishlist));
 
+//profile route
+router.get("/profile", isLoggedIn, wrapAsync(userController.showProfile));
+
 module.exports = router;
