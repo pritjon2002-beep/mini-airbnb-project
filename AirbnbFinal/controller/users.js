@@ -54,3 +54,9 @@ module.exports.logout = (req, res, next) => {
     res.redirect("/listings");
   });
 };
+
+//showfavlist
+module.exports.showWishlist = async (req, res) => {
+  let user = await User.findById(req.user._id).populate("savedListings");
+  res.render("users/wishlist.ejs", { savedListings: user.savedListings });
+};
