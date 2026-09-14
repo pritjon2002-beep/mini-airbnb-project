@@ -12,6 +12,13 @@ const userSchema = new Schema({
   googleId: {
     type: String,
   },
+
+  savedListings: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Listing",
+    },
+  ],
 });
 
 userSchema.plugin(passportLocalMongoose); // implement username , pass , hashing and salting
