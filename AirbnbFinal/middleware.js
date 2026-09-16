@@ -66,3 +66,12 @@ module.exports.isReviewAuthor = async (req, res, next) => {
   }
   return next();
 };
+
+//is admin or not
+module.exports.isAdmin = (req, res, next) => {
+  if (!req.isAuthenticated() || res.locals.currUser.role !== "admin") {
+    req.flash("error", "You do not have admin access");
+    return res.redirect("/listings");
+  }
+  next();
+};
