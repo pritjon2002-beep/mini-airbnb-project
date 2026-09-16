@@ -1,0 +1,171 @@
+<% layout("/layouts/boilerplate") -%>
+
+<div class="container-fluid py-4">
+
+  <h1 class="mb-4 fw-bold">Admin Dashboard</h1>
+
+  <!-- Stat Cards -->
+  <div class="row g-3 mb-5">
+    <div class="col-6 col-md-3">
+      <div class="card shadow-sm border-0 stat-card bg-primary text-white">
+        <div class="card-body text-center">
+          <div class="fs-2 fw-bold"><%= listings.length %></div>
+          <div >Total Listings</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="card shadow-sm border-0 stat-card bg-success text-white ">
+        <div class="card-body  text-center">
+          <div class="fs-2 fw-bold"><%= users.length %></div>
+          <div>Total Users</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="card shadow-sm border-0 stat-card bg-warning text-dark ">
+        <div class="card-body  text-center">
+          <div class="fs-2 fw-bold"><%= reviews.length %></div>
+          <div>Total Reviews</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="card shadow-sm border-0 stat-card bg-danger text-white">
+        <div class="card-body  text-center">
+          <div class="fs-2 fw-bold"><%= users.filter(u => u.role === "admin").length %></div>
+          <div>Admins</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <ul class="nav nav-tabs mb-3" id="adminTabs" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#listingsTab" type="button">Listings</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" data-bs-toggle="tab" data-bs-target="#usersTab" type="button">Users</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" data-bs-toggle="tab" data-bs-target="#reviewsTab" type="button">Reviews</button>
+    </li>
+  </ul>
+
+  <div class="tab-content">
+
+    <!-- LISTINGS TABLE -->
+    <div class="tab-pane fade show active" id="listingsTab">
+      <div class="table-responsive">
+        <table class="table table-hover align-middle bg-white shadow-sm rounded">
+          <thead class="table-light">
+            <tr>
+              <th>Image</th>
+              <th>Title</th>
+              <th>Owner</th>
+              <th>Price</th>
+              <th>Category</th>
+              <th class="text-end">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% listings.forEach(l => { %>
+              <tr>
+                <td style="width:70px;">
+                  <img src="<%= l.image && l.image.url ? l.image.url : '/images/placeholder.png' %>"
+                       class="rounded" style="width:60px;height:45px;object-fit:cover;">
+                </td>
+                <td><%= l.title %></td>
+                <td><%= l.owner ? l.owner.username : "unknown" %></td>
+                <td>&#8377;<%= l.price ? l.price.toLocaleString("en-IN") : "-" %></td>
+                <td><span class="badge bg-secondary"><%= l.category %></span></td>
+                <td class="text-end">
+                  <a href="/listings/<%= l._id %>/edit" class="btn btn-sm btn-outline-primary me-1">Edit</a>
+                  <form action="/listings/<%= l._id %>?_method=DELETE" method="POST" class="d-inline"
+                        onsubmit="return confirm('Delete this listing?');">
+                    <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                  </form>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- USERS TABLE -->
+    <div class="tab-pane fade" id="usersTab">
+      <div class="table-responsive">
+        <table class="table table-hover align-middle bg-white shadow-sm rounded">
+          <thead class="table-light">
+            <tr>
+              <th>Username</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th class="text-end">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% users.forEach(u => { %>
+              <tr>
+                <td><%= u.username %></td>
+                <td><%= u.email %></td>
+                <td>
+                  <span class="badge <%= u.role === 'admin' ? 'bg-dark' : 'bg-light text-dark border' %>">
+                    <%= u.role %>
+                  </span>
+                </td>
+                <td class="text-end">
+                  <!-- Part 4: Make Admin / Ban buttons go here -->
+                  <span class="text-muted small">—</span>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- REVIEWS TABLE -->
+    <div class="tab-pane fade" id="reviewsTab">
+      <div class="table-responsive">
+        <table class="table table-hover align-middle bg-white shadow-sm rounded">
+          <thead class="table-light">
+            <tr>
+              <th>Comment</th>
+              <th>Rating</th>
+              <th>Author</th>
+              <th>On Listing</th>
+              <th class="text-end">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% reviews.forEach(r => { %>
+              <tr>
+                <td><%= r.comment %></td>
+                <td>&#9733; <%= r.rating %></td>
+                <td><%= r.author ? r.author.username : "unknown" %></td>
+                <td><%= r.listing ? r.listing.title : "-" %></td>
+                <td class="text-end">
+                  <form action="/listings/<%= r.listing ? r.listing._id : '' %>/reviews/<%= r._id %>?_method=DELETE"
+                        method="POST" class="d-inline"
+                        onsubmit="return confirm('Delete this review?');">
+                    <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                  </form>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<style>
+  .stat-card { transition: transform .15s ease; }
+  .stat-card:hover { transform: translateY(-3px); }
+  .nav-tabs .nav-link.active { font-weight: 600; }
+</style>

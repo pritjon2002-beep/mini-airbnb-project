@@ -133,6 +133,10 @@ app.get("/", (req, res) => {
   res.redirect("/listings");
 });
 
+//adminrouter
+const adminRouter = require("./routes/admin.js");
+app.use("/admin", adminRouter);
+
 // 4. Routes
 
 //listing router
