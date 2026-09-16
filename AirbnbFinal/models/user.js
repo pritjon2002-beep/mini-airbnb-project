@@ -9,6 +9,12 @@ const userSchema = new Schema({
   },
   //username and password is automatically added by passport-local-mongoose
 
+  role: {
+    type: String,
+    enum: ["user", "admin"],
+    default: "user",
+  },
+
   googleId: {
     type: String,
   },
