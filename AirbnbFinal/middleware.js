@@ -26,7 +26,10 @@ module.exports.isOwner = async (req, res, next) => {
     req.flash("error", "Listing does not exist!");
     return res.redirect("/listings");
   }
-  if (!listing.owner._id.equals(res.locals.currUser._id)) {
+  if (
+    !listing.owner._id.equals(res.locals.currUser._id) &&
+    res.locals.currUser.role !== "admin"
+  ) {
     req.flash("error", "You are not the owner of this listing");
     return res.redirect(`/listings/${id}`);
   }
@@ -65,4 +68,13 @@ module.exports.isReviewAuthor = async (req, res, next) => {
     return res.redirect(`/listings/${id}`);
   }
   return next();
+};
+
+//is admin or not
+module.exports.isAdmin = (req, res, next) => {
+  if (!req.isAuthenticated() || res.locals.currUser.role !== "admin") {
+    req.flash("error", "You do not have admin access");
+    return res.redirect("/listings");
+  }
+  next();
 };
