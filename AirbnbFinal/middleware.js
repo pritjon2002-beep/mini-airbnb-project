@@ -63,7 +63,10 @@ module.exports.isReviewAuthor = async (req, res, next) => {
     req.flash("error", "Review does not exist!");
     return res.redirect(`/listings/${id}`);
   }
-  if (!review.author._id.equals(res.locals.currUser._id)) {
+  if (
+    !review.author.equals(res.locals.currUser._id) &&
+    res.locals.currUser.role !== "admin"
+  ) {
     req.flash("error", "You are not the author of this review");
     return res.redirect(`/listings/${id}`);
   }
